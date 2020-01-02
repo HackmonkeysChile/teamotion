@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Header from './components/Header';
-import HomePage from './screens/HomePage';
-import Footer from './navigation/Footer';
+import NavContribuidor from './navigation/NavContribuidor';
 
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
@@ -29,14 +28,21 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-       <Footer/>   
+      <View style={styles.footer}></View>
+      <NavContribuidor/>   
     </View>
   );
 }
 
-
 const styles = StyleSheet.create({
   screen: {
     flex: 1
+  },
+  footer:{
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor:'#FFED70',
+    height: 60,
+    width:'100%'
   }
 });
