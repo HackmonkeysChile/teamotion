@@ -15,10 +15,10 @@ import colores from '../constants/colores';
 const nav = createStackNavigator({
     Emocion: SeleccionarEmocionScreen,
     HomePage: {
-        
+        screen: HomePage
     },
     PerfilScreen: PerfilScreen,
-    
+
 });
 
 const tabNav = createBottomTabNavigator({
@@ -26,7 +26,7 @@ const tabNav = createBottomTabNavigator({
     Emocion: {
         screen: nav,
         navigationOptions: {
-            
+
             tabBarIcon: ({ tintColor }) => (
                 <View
                     style={{
@@ -39,14 +39,14 @@ const tabNav = createBottomTabNavigator({
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <FontAwesome
-                            name="plus"
-                            size={45}
-                            color={tintColor}
-                            style={{
-                                alignContent: 'center'
-                            }}
-                        />
+                    <FontAwesome
+                        name="plus"
+                        size={45}
+                        color={tintColor}
+                        style={{
+                            alignContent: 'center'
+                        }}
+                    />
 
                 </View>
             ),
@@ -62,19 +62,18 @@ const tabNav = createBottomTabNavigator({
 
     }
 }
-    /*{
-        initialRouteName: "Home",
-        defaultNavigationOptions: ({navigation}) =>
+    , {
+        initialRouteName: "HomePage",
+        defaultNavigationOptions: ({ navigation }) =>
             ({
-            tabBarOnPress: ({ navigation, defaultHandler }) =>
-            {
-                 if (navigation.state.routeName === "Home") {
-                    return null;
+                tabBarOnPress: ({ navigation, defaultHandler }) => {
+                    if (navigation.state.routeName === "HomePage") {
+                        return null;
+                    }
+                    defaultHandler();
                 }
-                 defaultHandler();
-            }
-        })
-    }*/
+            })
+    }
 );
 
 const NavContribuidor = createAppContainer(tabNav);
