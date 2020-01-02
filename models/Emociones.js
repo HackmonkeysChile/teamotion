@@ -3,7 +3,6 @@ class Emociones{
         this.id=id;
         this.nombre=nombre;
         this.color=color;
-  
     }
  
 }

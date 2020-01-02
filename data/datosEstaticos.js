@@ -3,11 +3,10 @@ import Tarea from '../models/Tareas';
 import Colaborador from '../models/Colaborador';
 
 export const Emocion =[
-    new Emociones (1, 'Enojado', '#e60000'),
-    new Emociones (2, 'Triste','#1a1aff'),
-    new Emociones (3, 'Neutral', '#595959'),
-    new Emociones (4, 'Feliz', '#ff3399'),
-    new Emociones (5, 'Muy feliz', '#ffcc00')
+    new Emociones (1, 'Excelente', 'rgba(255, 204, 0,0.7)'),
+    new Emociones (2, 'Bien', '#ff3399'),
+    new Emociones (3, 'No muy bien','#1a1aff'),
+    new Emociones (4, 'Terrible', '#e60000'),
 ];
 
 export const Tareas=[

@@ -1,32 +1,68 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 
 import SeleccionarEmocionScreen from '../screens/SeleccionarEmocionScreen';
-import HomePage from '../screens/HomePage';
+import SeleccionarTareaScreen from '../screens/SeleccionarTareasScreen';
+import HomePages from '../screens/HomePage';
 import PerfilScreen from '../screens/PerfilScreen';
 import TareasScreen from '../screens/TareasScreen';
 
 import React from "react";
-import { View, TouchableHighlight, } from "react-native";
+import { View } from "react-native";
 import colores from '../constants/colores';
 
-const nav = createStackNavigator({
-    Emocion: SeleccionarEmocionScreen,
+const HomeStack = createStackNavigator({
     HomePage: {
-        screen: HomePage
-    },
-    PerfilScreen: PerfilScreen,
+        screen: HomePages,
+        navigationOptions: {
+            header: null
+        }
+    }
+});
 
+const TareasHome = createStackNavigator({
+    HomePage: {
+        screen: HomePages,
+        navigationOptions: {
+            header: null
+        }
+    },
+    TareasScreen: TareasScreen
+});
+
+const EmocionSelect = createStackNavigator({
+    SeleccionarEmocionScreen: {
+        screen: SeleccionarEmocionScreen,
+        navigationOptions: { header: null }
+    },
+    HomePage: {
+        screen: HomeStack,
+        navigationOptions: {
+            header: null
+        }
+    }
+}, {
+    tabBarOptions: {
+        activeTintColor: 'white',
+        inactiveTintColor: 'rgba(255,255,255,0.8)',
+        activeBackgroundColor: colores.primario,
+        inactiveBackgroundColor: colores.primario,
+    }
+});
+
+const MiPerfil = createMaterialTopTabNavigator({
+    Perfil: PerfilScreen,
+    TareasScreen: TareasScreen
 });
 
 const tabNav = createBottomTabNavigator({
-    Perfil: PerfilScreen,
-    Emocion: {
-        screen: nav,
+    Home: HomeStack,
+    Daily: {
+        screen: EmocionSelect,
         navigationOptions: {
-
+            tabBarVisible: false,
             tabBarIcon: ({ tintColor }) => (
                 <View
                     style={{
@@ -52,29 +88,21 @@ const tabNav = createBottomTabNavigator({
             ),
         },
     },
-    Tareas: TareasScreen
+    miPerfil: {
+        screen: MiPerfil,
+        navigationOptions: {
+            tabBarLabel: 'Mi Perfil'
+        }
+    },
+
 }, {
     tabBarOptions: {
         activeTintColor: 'white',
         inactiveTintColor: 'rgba(255,255,255,0.8)',
         activeBackgroundColor: colores.primario,
         inactiveBackgroundColor: colores.primario,
-
     }
-}
-    , {
-        initialRouteName: "HomePage",
-        defaultNavigationOptions: ({ navigation }) =>
-            ({
-                tabBarOnPress: ({ navigation, defaultHandler }) => {
-                    if (navigation.state.routeName === "HomePage") {
-                        return null;
-                    }
-                    defaultHandler();
-                }
-            })
-    }
-);
+});
 
-const NavContribuidor = createAppContainer(tabNav);
-export default NavContribuidor;
+const NavEjemplo = createAppContainer(tabNav);
+export default NavEjemplo;
