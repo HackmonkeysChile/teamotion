@@ -33,7 +33,7 @@ const SeleccionarTareasScreen = props => {
                     style={styles.button}
                     color={Colores.secundario}
                     onPress={() => {
-                        props.navigation.navigate('Comenzar')
+                        props.navigation.navigate('HomePage')
                     }} />
 
             </View>

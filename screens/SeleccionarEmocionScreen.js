@@ -42,7 +42,7 @@ const SeleccionarEmocionScreen = props => {
                     style={styles.button}
                     color={Colores.secundario}
                     onPress={() => {
-                        props.navigation.navigate('Tareas')
+                        props.navigation.navigate('TareasSeleccionar')
                     }} />
 
             </View>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Header from './components/Header';
-import ComenzarDaily from './screens/ComenzarDaily';
+import HomePage from './screens/HomePage';
 import Footer from './navigation/Footer';
 
 import * as Font from 'expo-font';
@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <Footer/>
+       <Footer/>   
     </View>
   );
 }
