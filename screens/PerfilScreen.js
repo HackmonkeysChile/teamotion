@@ -5,7 +5,6 @@ const PerfilScreen = props => {
     return (
         <View style={styles.screen}>
             <Text>Perfil Screen!</Text>
-            <View style={styles.footer}></View>
         </View>
     )
 };

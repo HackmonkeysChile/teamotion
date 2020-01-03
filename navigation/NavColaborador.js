@@ -10,8 +10,12 @@ import PerfilScreen from '../screens/PerfilScreen';
 import TareasScreen from '../screens/TareasScreen';
 
 import React from "react";
-import { View } from "react-native";
+import {
+    View,
+    TouchableHighlight
+} from "react-native";
 import colores from '../constants/colores';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 const HomeStack = createStackNavigator({
     HomePage: {
@@ -22,23 +26,13 @@ const HomeStack = createStackNavigator({
     }
 });
 
-const TareasHome = createStackNavigator({
-    HomePage: {
-        screen: HomePages,
-        navigationOptions: {
-            header: null
-        }
-    },
-    TareasScreen: TareasScreen
-});
-
 const EmocionSelect = createStackNavigator({
     SeleccionarEmocionScreen: {
         screen: SeleccionarEmocionScreen,
         navigationOptions: { header: null }
     },
-    HomePage: {
-        screen: HomeStack,
+    SeleccionarTareaScreen: {
+        screen: SeleccionarTareaScreen,
         navigationOptions: {
             header: null
         }
@@ -54,7 +48,26 @@ const EmocionSelect = createStackNavigator({
 
 const MiPerfil = createMaterialTopTabNavigator({
     Perfil: PerfilScreen,
-    TareasScreen: TareasScreen
+    Metas: {
+        screen:TareasScreen,
+        navigationOptions: {
+            tabBarLabel: 'Mis Metas'
+        }
+    }
+},{
+    tabBarOptions:{
+        style:{
+            backgroundColor: colores.secundarioClaro,
+            paddingTop:25
+        },
+        labelStyle:{
+            color:colores.letras,
+            fontWeight: 'bold',
+        },
+        indicatorStyle :{
+            backgroundColor:colores.primario
+        }
+    }
 });
 
 const tabNav = createBottomTabNavigator({
@@ -67,7 +80,10 @@ const tabNav = createBottomTabNavigator({
                 <View
                     style={{
                         position: 'absolute',
-                        bottom: -10, // space from bottombar
+                        alignItems: 'center',
+                        bottom: -13,
+                        position: 'absolute',
+                        // space from bottombar
                         height: 90,
                         width: 90,
                         borderRadius: 58,
@@ -75,16 +91,16 @@ const tabNav = createBottomTabNavigator({
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                    <FontAwesome
-                        name="plus"
-                        size={45}
-                        color={tintColor}
-                        style={{
-                            alignContent: 'center'
-                        }}
-                    />
-
+                        <FontAwesome
+                            name="plus"
+                            size={45}
+                            color={tintColor}
+                            style={{
+                                alignContent: 'center'
+                            }}
+                        />
                 </View>
+
             ),
         },
     },
@@ -98,11 +114,22 @@ const tabNav = createBottomTabNavigator({
 }, {
     tabBarOptions: {
         activeTintColor: 'white',
-        inactiveTintColor: 'rgba(255,255,255,0.8)',
+        inactiveTintColor: 'rgba(255,255,255,0.7)',
         activeBackgroundColor: colores.primario,
         inactiveBackgroundColor: colores.primario,
+        style:{
+            borderTopColor: colores.secundario,
+            height:65,
+            borderTopWidth:15,
+            borderBottomColor: colores.primario,
+            borderBottomWidth:0
+        },
+        labelStyle:{
+            fontSize:12,
+            marginBottom:6
+        }
     }
 });
 
-const NavEjemplo = createAppContainer(tabNav);
-export default NavEjemplo;
+const NavColaborador = createAppContainer(tabNav);
+export default NavColaborador;

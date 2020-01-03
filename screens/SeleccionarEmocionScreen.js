@@ -13,11 +13,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 //emoticon-happy
 //emoticon-sad
 import { FontAwesome } from '@expo/vector-icons';
-
-
 import Colores from '../constants/colores';
 import { Emocion } from '../data/datosEstaticos';
 import colores from '../constants/colores';
+import textos from '../constants/textos';
 
 const renderGrid = (itemData) => {
     return (
@@ -30,10 +29,10 @@ const renderGrid = (itemData) => {
                 }}
             />
             <Text>{itemData.item.nombre}</Text>
-
         </View>
     );
 };
+
 const iconito = () => {
     return (
         <FontAwesome name="check"
@@ -41,43 +40,46 @@ const iconito = () => {
             color={'white'}
             style={{
                 alignContent: 'center'
-            }} />
+            }}
+        />
     );
 };
+
 const SeleccionarEmocionScreen = props => {
-    console.log(iconito);
     return (
         <View style={styles.screen}>
-            <Text style={styles.titulo}>¿Cómo te sientes?</Text>
+            <View style={styles.publicaciones}>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.title}>¿CÓMO TE SIENTES?</Text>
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>Selecciona una emocion</Text>
+                </View>
 
-            <FlatList
-                data={Emocion}
-                horizontal={true}
-                renderItem={renderGrid}
-            />
-            <Button title="dfjksn" onPress={() => { props.navigation.navigate('HomePage') }} />
-            <View style={styles.footer}>
+                <FlatList
+                    data={Emocion}
+                    horizontal={true}
+                    renderItem={renderGrid}
+                    keyExtractor={(renderGrid, index) => index.toString()}
+                />
+                <View style={styles.footer2}>
+                    <TouchableHighlight onPress={() => {
+                        props.navigation.navigate('SeleccionarTareaScreen')
+                    }} >
+                        <View style={styles.buttonView}>
+                            <FontAwesome name="check"
+                                size={35}
+                                color={'white'}
+                                style={{
+                                    alignContent: 'center'
+                                }} />
+
+                        </View>
+                    </TouchableHighlight>
+                </View>
             </View>
-            <View style={styles.footer2}>
-                <TouchableHighlight onPress={() => {
-                    props.navigation.navigate('HomePage')
-                }} >
-                    <View style={styles.buttonView}>
-                        <FontAwesome name="check"
-                            size={35}
-                            color={'white'}
-                            style={{
-                                alignContent: 'center'
-                            }} />
-
-                    </View>
-                </TouchableHighlight>
-            </View>
-
-
         </View>
     )
-
 };
 
 SeleccionarEmocionScreen.navigationOptions = {
@@ -90,15 +92,24 @@ SeleccionarEmocionScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
     screen: {
+        flex: 1
+    },
+    publicaciones: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        padding: '8%'
     },
     button: {
         width: '49%',
     },
-    titulo: {
-        marginTop: 50
+    title: {
+        color: colores.letras,
+        fontSize: textos.sizeTitulo,
+        fontFamily: textos.familyTitulo
+    },
+    text: {
+        color: colores.letras,
+        fontSize: textos.sizeTexto,
+        textAlign: textos.alignTexto,
     },
     buttonView: {
         position: 'absolute',
@@ -116,22 +127,18 @@ const styles = StyleSheet.create({
         height: 150,
         justifyContent: 'center',
         alignItems: 'center'
+    }, 
+    textContainer: {
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginBottom: 10,
     },
-    footer: {
-        position: 'absolute',
-        bottom: 0,
-        backgroundColor: colores.secundario,
-        height: 64,
-        width: '100%'
-    }
-    ,
-    footer2: {
-        position: 'absolute',
-        bottom: 0,
-        backgroundColor: colores.primario,
-        height: 49.5,
-        width: '100%'
-    }
+    titleContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+        marginTop: 20,
+    },
 
 });
 

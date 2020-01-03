@@ -2,10 +2,21 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import HomePage from './screens/HomePage';
-import NavEjemplo from './navigation/NavEjemplo';
+import Header from './components/Header';
+import NavColaborador from './navigation/NavColaborador';
 
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
+import { createStore, combineReducers } from 'redux';
+import colaboradorReducer from './store/reducers/colaborador';
+import { Provider } from 'react-redux';
+import Colaborador from './models/Colaborador';
+
+const rootReducer = combineReducers({
+  colab: colaboradorReducer
+});
+
+const store = createStore(rootReducer);
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -27,9 +38,11 @@ export default function App() {
   }
 
   return (
-    <View style={styles.screen}>
-      
-      <NavEjemplo/>   
+    <Provider store={store}><NavColaborador/></Provider>
+  );
+  return (
+    <View style= {styles.screen}>
+      <NavColaborador />
     </View>
   );
 }
@@ -38,11 +51,11 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1
   },
-  footer:{
+  footer: {
     position: 'absolute',
     bottom: 0,
-    backgroundColor:'#FFED70',
+    backgroundColor: '#FFED70',
     height: 60,
-    width:'100%'
+    width: '100%'
   }
 });
