@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     View,
     Text,
@@ -14,7 +14,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 //emoticon-sad
 import { FontAwesome } from '@expo/vector-icons';
 import Colores from '../constants/colores';
-import { Emocion } from '../data/datosEstaticos';
+import {useSelector, useDispatch} from "react-redux";
+import * as emocionesAction from "../store/actions/emociones"
 import colores from '../constants/colores';
 import textos from '../constants/textos';
 
@@ -46,6 +47,11 @@ const iconito = () => {
 };
 
 const SeleccionarEmocionScreen = props => {
+    const emociones = useSelector(estado => estado.emociones.emociones);
+    const dispatch = useDispatch();
+    useEffect(()=> {
+        dispatch(emocionesAction.traerEmociones());
+    }, [dispatch]);
     return (
         <View style={styles.screen}>
             <View style={styles.publicaciones}>
@@ -57,7 +63,7 @@ const SeleccionarEmocionScreen = props => {
                 </View>
 
                 <FlatList
-                    data={Emocion}
+                    data={emociones}
                     horizontal={true}
                     renderItem={renderGrid}
                     keyExtractor={(renderGrid, index) => index.toString()}

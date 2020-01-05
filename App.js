@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
-import HomePage from './screens/HomePage';
-import Header from './components/Header';
 import NavColaborador from './navigation/NavColaborador';
-
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware} from 'redux';
 import colaboradorReducer from './store/reducers/colaborador';
+import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import Colaborador from './models/Colaborador';
+import emocionesReducer from "./store/reducers/emociones";
 
 const rootReducer = combineReducers({
-  colab: colaboradorReducer
+  emociones: emocionesReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -42,7 +39,7 @@ export default function App() {
   );
   return (
     <View style= {styles.screen}>
-      <NavColaborador />
+      <Provider store={store}><NavColaborador /></Provider>
     </View>
   );
 }

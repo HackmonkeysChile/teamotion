@@ -80,10 +80,7 @@ const tabNav = createBottomTabNavigator({
                 <View
                     style={{
                         position: 'absolute',
-                        alignItems: 'center',
                         bottom: -13,
-                        position: 'absolute',
-                        // space from bottombar
                         height: 90,
                         width: 90,
                         borderRadius: 58,

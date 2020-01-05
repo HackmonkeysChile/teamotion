@@ -1,10 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
+import Colores from "../constants/colores";
 
 const PerfilScreen = props => {
     return (
         <View style={styles.screen}>
             <Text>Perfil Screen!</Text>
+            <Button
+                title="Comenzar"
+                style={styles.button}a
+                color={Colores.secundario}
+                onPress={() => props.navigation.navigate('HomePage')
+                } />
         </View>
     )
 };
