@@ -4,7 +4,6 @@ import NavColaborador from './navigation/NavColaborador';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import { createStore, combineReducers, applyMiddleware} from 'redux';
-import colaboradorReducer from './store/reducers/colaborador';
 import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import emocionesReducer from "./store/reducers/emociones";

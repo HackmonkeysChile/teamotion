@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, Platform } from 'react-native';
-
 import Colores from '../constants/colores';
-
 
 const ComenzarDaily = props => {
     return (

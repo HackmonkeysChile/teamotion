@@ -13,11 +13,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 //emoticon-happy
 //emoticon-sad
 import { FontAwesome } from '@expo/vector-icons';
-import Colores from '../constants/colores';
-import {useSelector, useDispatch} from "react-redux";
-import * as emocionesAction from "../store/actions/emociones"
-import colores from '../constants/colores';
 import textos from '../constants/textos';
+import {useSelector, useDispatch} from "react-redux";
+import * as emocionesAction from "../store/actions/emociones";
+import colores from '../constants/colores';
 
 const renderGrid = (itemData) => {
     return (
@@ -91,9 +90,9 @@ const SeleccionarEmocionScreen = props => {
 SeleccionarEmocionScreen.navigationOptions = {
     headerTitle: '',
     headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colores.primario : ''
+        backgroundColor: Platform.OS === 'android' ? colores.primario : ''
     },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Colores.primario
+    headerTintColor: Platform.OS === 'android' ? 'white' : colores.primario
 };
 
 const styles = StyleSheet.create({

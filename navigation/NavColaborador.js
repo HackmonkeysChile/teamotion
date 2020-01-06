@@ -57,7 +57,7 @@ const MiPerfil = createMaterialTopTabNavigator({
 },{
     tabBarOptions:{
         style:{
-            backgroundColor: colores.secundarioClaro,
+            backgroundColor: colores.secundario,
             paddingTop:25
         },
         labelStyle:{
@@ -65,7 +65,7 @@ const MiPerfil = createMaterialTopTabNavigator({
             fontWeight: 'bold',
         },
         indicatorStyle :{
-            backgroundColor:colores.primario
+            backgroundColor:colores.letras
         }
     }
 });

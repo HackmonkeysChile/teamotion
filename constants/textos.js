@@ -1,6 +1,5 @@
 export default {
-    sizeTitulo: 22,
-    familyTitulo: 'open-sans-bold',
-    sizeTexto: 15,
-    alignTexto: 'left'
+    texto: 12,
+    titulo: 17,
+    subtitulo:13
 };
