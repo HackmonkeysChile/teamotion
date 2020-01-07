@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 
+import PlusButton from '../components/PlusButton';
 import SeleccionarEmocionScreen from '../screens/SeleccionarEmocionScreen';
 import SeleccionarTareaScreen from '../screens/SeleccionarTareasScreen';
 import HomePages from '../screens/HomePage';
@@ -11,7 +12,7 @@ import TareasScreen from '../screens/TareasScreen';
 import AutenticacionScreen from '../screens/AutenticacionScreen';
 
 import React from 'react';
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 
 import colores from '../constants/colores';
 
@@ -43,7 +44,7 @@ const EmocionSelect = createStackNavigator({
         navigationOptions: {
             header: null
         }
-    }
+    }, PlusButton: PlusButton
 }, {
     tabBarOptions: {
         activeTintColor: 'white',
@@ -83,29 +84,7 @@ const tabNav = createBottomTabNavigator({
         screen: EmocionSelect,
         navigationOptions: {
             tabBarVisible: false,
-            tabBarIcon: ({ tintColor }) => (
-                <View
-                    style={{
-                        position: 'absolute',
-                        bottom: -13,
-                        height: 90,
-                        width: 90,
-                        borderRadius: 58,
-                        backgroundColor: colores.primario,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                    <FontAwesome
-                        name="plus"
-                        size={45}
-                        color={tintColor}
-                        style={{
-                            alignContent: 'center'
-                        }}
-                    />
-                </View>
-
-            ),
+            tabBarIcon: <PlusButton/>
         },
     },
     miPerfil: {

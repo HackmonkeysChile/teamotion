@@ -1,30 +1,33 @@
-import React, { Component } from 'react';
-import { Animated, TouchableHighlight, View } from "react-native";
+import React, { Component, useState } from 'react';
+import { TouchableOpacity, Modal } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import colores from '../constants/colores';
-import { BottomTabBar } from 'react-navigation-tabs';
 
-const SIZE = 80;
 
 const PlusButton = props => {
     return (
-        <View
+        <TouchableOpacity
+            onPress={()=> {}}
             style={{
                 position: 'absolute',
-                alignItems: 'center',
-                bottom: -10,
-                position: 'absolute',
-                // space from bottombar
-                height: SIZE,
-                width: SIZE,
+                bottom: -13,
+                height:85,
+                width: 85,
                 borderRadius: 58,
                 backgroundColor: colores.primario,
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            
-        </View >
+            <FontAwesome
+                name="plus"
+                size={45}
+                color={'white'}
+                style={{
+                    alignContent: 'center'
+                }}
+            />
+        </TouchableOpacity>
     )
 };
 
-export { PlusButton };
+export default PlusButton;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
 
 import colores from '../constants/colores';
 import textos from '../constants/textos';
@@ -8,16 +8,17 @@ const PerfilScreen = props => {
     return (
         <ScrollView>
             <View style={styles.screen}>
-                <View style={styles.header}>
+                <ImageBackground style={styles.head} source={require('../assets/colores.jpg')} >
                     <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
-                </View>
-                <View style={styles.body}>
-                    <View style={styles.bodyContent}>
-                        <View style={styles.tituloContainer}>
-                            <Text style={styles.titulo}>Felipe Díaz Fernandez</Text>
-                            <Text style={styles.rol}>Colaborador</Text>
-                        </View>
+                </ImageBackground>
 
+                <View style={styles.body}>
+                    <View style={styles.tituloContainer}>
+                        <Text style={styles.titulo}>Felipe Díaz Fernandez</Text>
+                        <Text style={styles.rol}>Colaborador</Text>
+                    </View>
+
+                    <View style={styles.gustosContainer}>
                         <TouchableOpacity style={styles.infoContainer}>
                             <Text style={styles.text}>Opcion 1 ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram ex</Text>
                         </TouchableOpacity>
@@ -37,9 +38,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    header: {
-        backgroundColor: "#00BFFF",
+    head: {
         height: 200,
+        width: '100%',
+        justifyContent: 'center',
+        marginBottom: 40
     },
     avatar: {
         width: 100,
@@ -49,16 +52,13 @@ const styles = StyleSheet.create({
         borderColor: "white",
         marginBottom: 10,
         alignSelf: 'center',
-        position: 'absolute',
-        marginTop: 150
+        bottom: -50,
+        position: 'absolute'
     },
     body: {
-        marginTop: 60,
-    },
-    bodyContent: {
         flex: 1,
-        alignItems: 'center',
         padding: 30,
+        width: '100%'
     },
     name: {
         fontSize: 28,
@@ -108,6 +108,9 @@ const styles = StyleSheet.create({
     tituloContainer: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    gustosContainer:{
+        marginTop: 20
     }
 });
 

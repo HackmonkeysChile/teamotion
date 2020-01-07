@@ -6,17 +6,16 @@ import {
     StyleSheet,
     FlatList, TouchableOpacity
 } from 'react-native';
+
 import { Ionicons } from '@expo/vector-icons';
-//md-happy superhappy
-//md-sad supersad
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-//emoticon-happy
-//emoticon-sad
 import { FontAwesome } from '@expo/vector-icons';
+
 import textos from '../constants/textos';
+import colores from '../constants/colores';
+
 import { useSelector, useDispatch } from "react-redux";
 import * as emocionesAction from "../store/actions/emociones";
-import colores from '../constants/colores';
+
 
 const renderGrid = (itemData) => {
     return (
@@ -50,6 +49,7 @@ const iconito = () => {
 const SeleccionarEmocionScreen = props => {
     const emociones = useSelector(estado => estado.emociones.emociones);
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(emocionesAction.traerEmociones());
     }, [dispatch]);
@@ -73,7 +73,11 @@ const SeleccionarEmocionScreen = props => {
 
             <View style={styles.foot}>
                 <View style={styles.contentBoton} >
-                    <TouchableOpacity onPress={() => { props.navigation.navigate('HomePage') }} style={styles.buttonView}>
+                    <TouchableOpacity
+                        onPress={() => { props.navigation.navigate('HomePage') }}
+                        style={styles.buttonView}
+                        activeOpacity={.5}
+                    >
                         <FontAwesome name="arrow-left"
                             size={35}
                             color={'white'}
@@ -84,8 +88,12 @@ const SeleccionarEmocionScreen = props => {
                     <Text style={styles.textoButton}>Volver</Text>
                 </View>
                 <View style={{ width: '34%' }} />
-                <View  style={styles.contentBoton}  >
-                    <TouchableOpacity onPress={() => { props.navigation.navigate('HomePage') }} style={styles.buttonView}>
+                <View style={styles.contentBoton}  >
+                    <TouchableOpacity
+                        onPress={() => { props.navigation.navigate('HomePage') }}
+                        style={styles.buttonView}
+                        activeOpacity={.5}
+                    >
                         <FontAwesome name="check"
                             size={35}
                             color={'white'}
@@ -168,11 +176,11 @@ const styles = StyleSheet.create({
     },
     textoButton: {
         bottom: 30,
-        color:'white',
+        color: 'white',
         fontFamily: 'open-sans-bold'
     },
     contentBoton: {
-        width: '33%', 
+        width: '33%',
         justifyContent: 'center',
         alignItems: 'center'
     }

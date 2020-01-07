@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 import colores from '../constants/colores';
 import textos from '../constants/textos';
 

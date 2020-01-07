@@ -6,4 +6,4 @@ export default{
     cancelar: '#808080',
     letras:'#297DAB',
     botones: '#04D9D9'
-};
+}; 
