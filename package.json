@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "chalk": "^3.0.0",
     "expo": "~36.0.0",
     "expo-font": "^8.0.0",
     "react": "~16.9.0",
