@@ -1,4 +1,4 @@
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome } from '@expo/vector-icons';
@@ -8,14 +8,21 @@ import SeleccionarTareaScreen from '../screens/SeleccionarTareasScreen';
 import HomePages from '../screens/HomePage';
 import PerfilScreen from '../screens/PerfilScreen';
 import TareasScreen from '../screens/TareasScreen';
+import AutenticacionScreen from '../screens/AutenticacionScreen';
 
-import React from "react";
-import {
-    View,
-    TouchableHighlight
-} from "react-native";
+import React from 'react';
+import { View } from "react-native";
+
 import colores from '../constants/colores';
-import { BorderlessButton } from 'react-native-gesture-handler';
+
+const AutenticarStack = createStackNavigator({
+    Autenticar:{
+        screen: AutenticacionScreen,
+        navigationOptions: {
+            header: null
+        }
+    }
+});
 
 const HomeStack = createStackNavigator({
     HomePage: {
@@ -49,23 +56,23 @@ const EmocionSelect = createStackNavigator({
 const MiPerfil = createMaterialTopTabNavigator({
     Perfil: PerfilScreen,
     Metas: {
-        screen:TareasScreen,
+        screen: TareasScreen,
         navigationOptions: {
             tabBarLabel: 'Mis Metas'
         }
     }
-},{
-    tabBarOptions:{
-        style:{
+}, {
+    tabBarOptions: {
+        style: {
             backgroundColor: colores.secundario,
-            paddingTop:25
+            paddingTop: 25
         },
-        labelStyle:{
-            color:colores.letras,
+        labelStyle: {
+            color: colores.letras,
             fontWeight: 'bold',
         },
-        indicatorStyle :{
-            backgroundColor:colores.letras
+        indicatorStyle: {
+            backgroundColor: colores.letras
         }
     }
 });
@@ -88,14 +95,14 @@ const tabNav = createBottomTabNavigator({
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                        <FontAwesome
-                            name="plus"
-                            size={45}
-                            color={tintColor}
-                            style={{
-                                alignContent: 'center'
-                            }}
-                        />
+                    <FontAwesome
+                        name="plus"
+                        size={45}
+                        color={tintColor}
+                        style={{
+                            alignContent: 'center'
+                        }}
+                    />
                 </View>
 
             ),
@@ -114,19 +121,25 @@ const tabNav = createBottomTabNavigator({
         inactiveTintColor: 'rgba(255,255,255,0.7)',
         activeBackgroundColor: colores.primario,
         inactiveBackgroundColor: colores.primario,
-        style:{
+        style: {
             borderTopColor: colores.secundario,
-            height:65,
-            borderTopWidth:15,
+            height: 65,
+            borderTopWidth: 15,
             borderBottomColor: colores.primario,
-            borderBottomWidth:0
+            borderBottomWidth: 0
         },
-        labelStyle:{
-            fontSize:12,
-            marginBottom:6
+        labelStyle: {
+            fontSize: 12,
+            marginBottom: 6
         }
     }
 });
 
-const NavColaborador = createAppContainer(tabNav);
+
+const mainNav = createSwitchNavigator({
+    Login: AutenticarStack,
+    Menu:tabNav,
+});
+
+const NavColaborador = createAppContainer(mainNav);
 export default NavColaborador;

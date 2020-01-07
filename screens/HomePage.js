@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux'
 import colores from '../constants/colores';
 import textos from '../constants/textos';
 
@@ -15,7 +16,7 @@ const HomePage = props => {
                         <Text style={styles.text}>Publicación de hoy</Text>
                     </View>
                     <View style={styles.imgContainer}>
-                        <Image style={styles.img} source={require('../assets/icon.png')} />
+                        <Image style={styles.img} source={require('../assets/hackmonkeys.jpg')} />
                     </View>
 
                 </View>
@@ -28,12 +29,14 @@ const styles = StyleSheet.create({
     title: {
         color: colores.letras,
         fontSize: textos.titulo,
-        fontFamily: 'open-sans-bold'
+        fontFamily: 'open-sans-bold',
+        textTransform: 'uppercase'
     },
     text: {
         color: colores.letras,
         fontSize: textos.subtitulo,
         textAlign: textos.alignTexto,
+        fontFamily: 'open-sans',
     },
     screen: {
         flex: 1,
@@ -55,12 +58,13 @@ const styles = StyleSheet.create({
     },
     img: {
         width: '100%',
-        height: 345
+        height: 345,
+        borderRadius: 30,
     },
     imgContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 12
+        marginTop: 12,
     }
 });
 export default HomePage;

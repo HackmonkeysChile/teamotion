@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
     View,
     Text,
     Button,
     StyleSheet,
-    FlatList, TouchableHighlight
+    FlatList, TouchableOpacity
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 //md-happy superhappy
@@ -14,7 +14,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 //emoticon-sad
 import { FontAwesome } from '@expo/vector-icons';
 import textos from '../constants/textos';
-import {useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import * as emocionesAction from "../store/actions/emociones";
 import colores from '../constants/colores';
 
@@ -28,7 +28,9 @@ const renderGrid = (itemData) => {
                     alignContent: 'center'
                 }}
             />
-            <Text>{itemData.item.nombre}</Text>
+            <Text style={{
+                fontSize: textos.texto
+            }}>{itemData.item.nombre}</Text>
         </View>
     );
 };
@@ -48,17 +50,17 @@ const iconito = () => {
 const SeleccionarEmocionScreen = props => {
     const emociones = useSelector(estado => estado.emociones.emociones);
     const dispatch = useDispatch();
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(emocionesAction.traerEmociones());
     }, [dispatch]);
     return (
         <View style={styles.screen}>
             <View style={styles.publicaciones}>
                 <View style={styles.titleContainer}>
-                    <Text style={styles.title}>¿CÓMO TE SIENTES?</Text>
+                    <Text style={styles.title}>¿Cómo te sientes hoy?</Text>
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.text}>Selecciona una emocion</Text>
+                    <Text style={styles.text}>Selecciona una emoción:</Text>
                 </View>
 
                 <FlatList
@@ -67,20 +69,31 @@ const SeleccionarEmocionScreen = props => {
                     renderItem={renderGrid}
                     keyExtractor={(renderGrid, index) => index.toString()}
                 />
-                <View style={styles.footer2}>
-                    <TouchableHighlight onPress={() => {
-                        props.navigation.navigate('SeleccionarTareaScreen')
-                    }} >
-                        <View style={styles.buttonView}>
-                            <FontAwesome name="check"
-                                size={35}
-                                color={'white'}
-                                style={{
-                                    alignContent: 'center'
-                                }} />
+            </View>
 
-                        </View>
-                    </TouchableHighlight>
+            <View style={styles.foot}>
+                <View style={styles.contentBoton} >
+                    <TouchableOpacity onPress={() => { props.navigation.navigate('HomePage') }} style={styles.buttonView}>
+                        <FontAwesome name="arrow-left"
+                            size={35}
+                            color={'white'}
+                            style={{
+                                alignContent: 'center'
+                            }} />
+                    </TouchableOpacity>
+                    <Text style={styles.textoButton}>Volver</Text>
+                </View>
+                <View style={{ width: '34%' }} />
+                <View  style={styles.contentBoton}  >
+                    <TouchableOpacity onPress={() => { props.navigation.navigate('HomePage') }} style={styles.buttonView}>
+                        <FontAwesome name="check"
+                            size={35}
+                            color={'white'}
+                            style={{
+                                alignContent: 'center'
+                            }} />
+                    </TouchableOpacity>
+                    <Text style={styles.textoButton}>Listo</Text>
                 </View>
             </View>
         </View>
@@ -103,23 +116,31 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: '8%'
     },
-    button: {
-        width: '49%',
-    },
     title: {
         color: colores.letras,
-        fontSize: textos.sizeTitulo,
-        fontFamily: textos.familyTitulo
+        fontSize: textos.titulo,
+        fontFamily: 'open-sans-bold',
+        textTransform: 'uppercase'
     },
     text: {
         color: colores.letras,
-        fontSize: textos.sizeTexto,
+        fontSize: textos.subtitulo,
         textAlign: textos.alignTexto,
+        fontFamily: 'open-sans',
+    },
+    textContainer: {
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginBottom: 10,
+    },
+    titleContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+        marginTop: 20,
     },
     buttonView: {
-        position: 'absolute',
-        bottom: -20, // space from bottombar
-        left: '75%',
+        bottom: 30,
         height: 55,
         width: 55,
         borderRadius: 58,
@@ -132,18 +153,29 @@ const styles = StyleSheet.create({
         height: 150,
         justifyContent: 'center',
         alignItems: 'center'
-    }, 
-    textContainer: {
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        marginBottom: 10,
     },
-    titleContainer: {
+    foot: {
+        flex: 1,
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 0,
+        backgroundColor: colores.primario,
+        borderTopWidth: 15,
+        height: 65,
+        width: '100%',
+        borderTopColor: colores.secundario,
+        justifyContent: 'center'
+    },
+    textoButton: {
+        bottom: 30,
+        color:'white',
+        fontFamily: 'open-sans-bold'
+    },
+    contentBoton: {
+        width: '33%', 
         justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 10,
-        marginTop: 20,
-    },
+        alignItems: 'center'
+    }
 
 });
 

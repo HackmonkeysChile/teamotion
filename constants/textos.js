@@ -1,5 +1,6 @@
 export default {
-    texto: 12,
+    superTitle: 35,
     titulo: 17,
-    subtitulo:13
+    texto: 13,
+    subtitulo:14
 };

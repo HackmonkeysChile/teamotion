@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+
 import colores from '../constants/colores';
 import textos from '../constants/textos';
 
@@ -13,7 +14,7 @@ const PerfilScreen = props => {
                 <View style={styles.body}>
                     <View style={styles.bodyContent}>
                         <View style={styles.tituloContainer}>
-                            <Text style={styles.titulo}>Felipe Días Fernandez</Text>
+                            <Text style={styles.titulo}>Felipe Díaz Fernandez</Text>
                             <Text style={styles.rol}>Colaborador</Text>
                         </View>
 
