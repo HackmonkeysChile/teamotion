@@ -1,9 +1,8 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, NavigationRoute  } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome } from '@expo/vector-icons';
 
-import PlusButton from '../components/PlusButton';
 import SeleccionarEmocionScreen from '../screens/SeleccionarEmocionScreen';
 import SeleccionarTareaScreen from '../screens/SeleccionarTareasScreen';
 import HomePages from '../screens/HomePage';
@@ -44,7 +43,7 @@ const EmocionSelect = createStackNavigator({
         navigationOptions: {
             header: null
         }
-    }, PlusButton: PlusButton
+    }
 }, {
     tabBarOptions: {
         activeTintColor: 'white',
@@ -84,7 +83,28 @@ const tabNav = createBottomTabNavigator({
         screen: EmocionSelect,
         navigationOptions: {
             tabBarVisible: false,
-            tabBarIcon: <PlusButton/>
+            tabBarIcon: 
+            <TouchableOpacity
+            onPress={()=> {}}
+            style={{
+                position: 'absolute',
+                bottom: -8,
+                height:80,
+                width: 80,
+                borderRadius: 58,
+                backgroundColor: colores.primario,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+            <FontAwesome
+                name="plus"
+                size={45}
+                color={'white'}
+                style={{
+                    alignContent: 'center'
+                }}
+            />
+        </TouchableOpacity>
         },
     },
     miPerfil: {

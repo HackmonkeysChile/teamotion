@@ -7,10 +7,11 @@ import { createStore, combineReducers, applyMiddleware} from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import emocionesReducer from "./store/reducers/emociones";
+import personaReducer from "./store/reducers/personas";
 
 const rootReducer = combineReducers({
   emociones: emocionesReducer,
-  persona: personaReducer
+  personas: personaReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

@@ -8,7 +8,6 @@ const RespuestaServicio = require('../Clases/RespuestaServicio');
 router.get('/Obtener', (req, res) => {
     const emocion = new Emocion;
     const objRespuestaServicio = new RespuestaServicio;
-
     emocion.Consultar_Todos()
         .then(resp => {
             objRespuestaServicio.Respuesta = 'OK';

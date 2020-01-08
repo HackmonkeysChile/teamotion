@@ -27,7 +27,7 @@ class Emocion extends Component{
                     <Text>Transform</Text>
                 </TouchableOpacity>
                 <Animated.Image
-                    source={require('../assets/hackm')}
+                    source={require('../assets/hackingmonkeys.jpg')}
                     resizeMode='cover'
                     style={{
                         position: 'absolute',
