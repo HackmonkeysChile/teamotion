@@ -10,6 +10,11 @@ npm-debug.*
 web-build/
 web-report/
 
+# config
+
+backend/Conexion
+backend/config.js
+
 # macOS
 .DS_Store
 v  
