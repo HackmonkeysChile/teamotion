@@ -9,7 +9,8 @@ import { Provider } from 'react-redux';
 import emocionesReducer from "./store/reducers/emociones";
 
 const rootReducer = combineReducers({
-  emociones: emocionesReducer
+  emociones: emocionesReducer,
+  persona: personaReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

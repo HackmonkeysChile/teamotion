@@ -8,8 +8,6 @@ const AutenticacionScreen = props =>{
     const [correo, setCorreo] = useState('');
     const [clave, setClave] = useState('');
 
-    
-
     return(
         <ScrollView>
             <View style={styles.screen}>
