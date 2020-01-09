@@ -49,10 +49,12 @@ router.post('/Crear', (req, res) => {
     const emocion = new Emocion;
     const objRespuestaServicio = new RespuestaServicio;
 
-    const data = _.pick(req.body, ['nombre', 'valor']);
+    const data = _.pick(req.body, ['nombre', 'valor', 'descripcion', 'imagen']);
 
     emocion.NOMBRE = data.nombre;
     emocion.VALOR = data.valor;
+    emocion.DESCRIPCION = data.descripcion;
+    emocion.IMAGEN = data.imagen;
 
     emocion.Crear()
         .then(resp => {
@@ -73,11 +75,13 @@ router.put('/Actualizar/:id_emocion', (req, res) => {
     const emocion = new Emocion;
     const objRespuestaServicio = new RespuestaServicio;
 
-    const data = _.pick(req.body, ['nombre', 'valor']);
+    const data = _.pick(req.body, ['nombre', 'valor', 'descripcion', 'imagen']);
 
     emocion.ID_EMOCION = req.params.id_emocion;
     emocion.NOMBRE = data.nombre;
     emocion.VALOR = data.valor;
+    emocion.DESCRIPCION = data.descripcion;
+    emocion.IMAGEN = data.imagen;
 
     emocion.Actualizar_Por_Id()
         .then(resp => {
