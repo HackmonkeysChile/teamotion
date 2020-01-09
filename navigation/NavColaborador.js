@@ -4,7 +4,6 @@ import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-n
 import { FontAwesome } from '@expo/vector-icons';
 
 import SeleccionarEmocionScreen from '../screens/SeleccionarEmocionScreen';
-import SeleccionarTareaScreen from '../screens/SeleccionarTareasScreen';
 import HomePages from '../screens/HomePage';
 import PerfilScreen from '../screens/PerfilScreen';
 import TareasScreen from '../screens/TareasScreen';
@@ -37,12 +36,6 @@ const EmocionSelect = createStackNavigator({
     SeleccionarEmocionScreen: {
         screen: SeleccionarEmocionScreen,
         navigationOptions: { header: null }
-    },
-    SeleccionarTareaScreen: {
-        screen: SeleccionarTareaScreen,
-        navigationOptions: {
-            header: null
-        }
     }
 }, {
     tabBarOptions: {

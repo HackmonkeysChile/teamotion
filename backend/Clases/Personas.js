@@ -15,7 +15,22 @@ class Personas {
     }
 
     Login(){
-        
+        const conexion = new sql.ConnectionPool(dbconfig);
+        const parametros = new sql.Request(conexion);
+
+        parametros.input('CORREO', sql.VarChar, this.CORREO);
+        parametros.input('CLAVE', sql.VarChar, this.CLAVE);
+        console.log(this.CORREO);
+        const Procedimiento = 'AUTENTICAR_PERSONA'
+        return new Promise((resolve, reject) => {
+            Conexion.ConsultaQuery(Procedimiento, parametros, conexion, (err, respuesta) => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(respuesta);
+                }
+            });
+        });
     }
 
     Crear(){
@@ -28,9 +43,8 @@ class Personas {
         parametros.input('CORREO', sql.VarChar, this.CORREO);
         parametros.input('CLAVE', sql.VarChar, this.CLAVE);
         parametros.input('ID_ROL', sql.Int, this.ID_ROL);
-        parametros.input('ID_ESTADO', sql.Int, this.ID_ESTADO);
 
-        const Procedimiento = 'INSERTAR_PERSONA'
+        const Procedimiento = 'INSERTAR_PERSONA';
 
         return new Promise((resolve, reject) => {
             Conexion.ConsultaQuery(Procedimiento, parametros, conexion, (err, respuesta) => {

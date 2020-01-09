@@ -8,6 +8,9 @@ const estadoInicial ={
 const personasReducer=(estado=estadoInicial, accion)=>{
     switch (accion.type){
         case AUTENTICAR_PERSONAS:
+            return{
+                personas:accion.personas
+            };
             
     }
     return estado;

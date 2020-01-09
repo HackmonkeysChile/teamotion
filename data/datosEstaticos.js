@@ -1,6 +1,5 @@
 import Emociones from '../models/Emociones';
 import Tarea from '../models/Tareas';
-import Colaborador from '../models/Colaborador';
 
 export const Emocion =[
     new Emociones (1, 'Excelente', 'rgba(255, 204, 0,0.7)'),

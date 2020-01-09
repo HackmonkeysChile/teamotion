@@ -5,6 +5,35 @@ const Response = require('../tools/Response');
 const _ = require('underscore');
 const RespuestaServicio = require('../Clases/RespuestaServicio');
 
+router.post('/Autenticar', (req, res) => {
+    const persona = new Persona;
+    const objRespuestaServicio = new RespuestaServicio;
+
+    const data = _.pick(req.body, ['correo', 'clave']);
+
+    console.log(req.body);
+
+    persona.CORREO = data.correo;
+    persona.CLAVE = data.clave;
+
+    persona.Login()
+        .then(resp => {
+
+            console.log(resp);
+    
+            objRespuestaServicio.Respuesta = 'OK';
+            objRespuestaServicio.Descripcion = resp.recordset;
+
+            Response.success(req, res, objRespuestaServicio, 200);
+        })
+        .catch(err => {
+            objRespuestaServicio.Respuesta = 'NOK';
+            objRespuestaServicio.Descripcion_Error = erter;
+
+            Response.error(req, res, objRespuestaServicio, 500, 'Se cae al autenticar una persona');
+        });
+})
+
 router.get('/Obtener', (req, res) => {
     const persona = new Persona;
     const objRespuestaServicio = new RespuestaServicio;

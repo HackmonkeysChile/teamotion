@@ -5,6 +5,8 @@ const Response = require('../tools/Response');
 const _ = require('underscore');
 const RespuestaServicio = require('../Clases/RespuestaServicio');
 
+
+
 router.get('/Obtener', (req, res) => {
     const emocion = new Emocion;
     const objRespuestaServicio = new RespuestaServicio;
@@ -23,11 +25,11 @@ router.get('/Obtener', (req, res) => {
         });
 });
 
-router.get('/Obtener/:id_emocion', (req, res) => {
+router.get('/ObtenerPorId', (req, res) => {
     const emocion = new Emocion;
     const objRespuestaServicio = new RespuestaServicio;
 
-    emocion.ID_EMOCION = req.params.id_emocion;
+    emocion.ID_EMOCION = req.body.id_emocion;
 
     emocion.Consultar_Por_ID()
         .then(resp => {
@@ -59,6 +61,8 @@ router.post('/Crear', (req, res) => {
         .then(resp => {
             objRespuestaServicio.Respuesta = 'OK';
             objRespuestaServicio.Descripcion = 'pasa';
+
+            console.log(resp);
 
             Response.success(req, res, objRespuestaServicio, 200);
         })

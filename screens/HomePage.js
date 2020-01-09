@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import colores from '../constants/colores';
 import textos from '../constants/textos';
+
 
 const HomePage = props => {
     return (
