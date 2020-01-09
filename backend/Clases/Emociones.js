@@ -3,10 +3,12 @@ const dbconfig = require('../Conexion/Credenciales');
 const sql = require('mssql');
 
 class Emociones {
-    constructor(ID_EMOCION, NOMBRE, VALOR) {
+    constructor(ID_EMOCION, NOMBRE, VALOR, DESCRIPCION, IMAGEN) {
         this.ID_EMOCION = ID_EMOCION;
         this.NOMBRE = NOMBRE;
         this.VALOR = VALOR;
+        this.DESCRIPCION = DESCRIPCION;
+        this.IMAGEN = IMAGEN;
     }
 
     Consultar_Todos(){
@@ -33,6 +35,8 @@ class Emociones {
 
         parametros.input('NOMBRE', sql.VarChar, this.NOMBRE);
         parametros.input('VALOR', sql.Int, this.VALOR);
+        parametros.input('DESCRIPCION', sql.VarChar, this.DESCRIPCION);
+        parametros.input('IMAGEN', sql.VarChar, this.IMAGEN);
 
         const Procedimiento = 'INSERTAR_EMOCIONES';
 
@@ -73,6 +77,8 @@ class Emociones {
         parametros.input('ID_EMOCION', sql.Int, this.ID_EMOCION);
         parametros.input('NOMBRE', sql.VarChar, this.NOMBRE);
         parametros.input('VALOR', sql.Int, this.VALOR);
+        parametros.input('DESCRIPCION', sql.VarChar, this.DESCRIPCION);
+        parametros.input('IMAGEN', sql.VarChar, this.IMAGEN);
 
         const Procedimiento = 'ACTUALIZAR_EMOCION_POR_ID';
 
