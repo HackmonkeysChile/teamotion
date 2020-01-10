@@ -17,7 +17,7 @@ const HomePage = props => {
                         <Text style={styles.text}>Publicación de hoy</Text>
                     </View>
                     <View style={styles.imgContainer}>
-                        <Image style={styles.img} source={require('../assets/hackmonkeys.jpg')} />
+                        <Image style={styles.img} source={require('../assets/img/hackmonkeys.jpg')} />
                     </View>
 
                 </View>

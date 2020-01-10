@@ -10,8 +10,7 @@ const personasReducer=(estado=estadoInicial, accion)=>{
         case AUTENTICAR_PERSONAS:
             return{
                 personas:accion.personas
-            };
-            
+            }; 
     }
     return estado;
 }

@@ -35,8 +35,7 @@ const HomeStackLider = createStackNavigator({
         navigationOptions: {
             header: null
         }
-    },
-    Autenticar2: AutenticacionScreen
+    }
 });
 
 const PerfilTopTabLider = createMaterialTopTabNavigator({
@@ -58,7 +57,7 @@ const PerfilTopTabLider = createMaterialTopTabNavigator({
             fontWeight: 'bold',
         },
         indicatorStyle: {
-            backgroundColor: colores.letras
+            backgroundColor: '#04D9D9'
         }
     }
 });
@@ -163,7 +162,7 @@ const MiPerfil = createMaterialTopTabNavigator({
             fontWeight: 'bold',
         },
         indicatorStyle: {
-            backgroundColor: colores.letras
+            backgroundColor: colores.primario
         }
     }
 });

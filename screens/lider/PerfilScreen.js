@@ -1,50 +1,53 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    ImageBackground,
+    TouchableOpacity,
+    ScrollView
+} from 'react-native';
 
 import colores from '../../constants/colores';
 import textos from '../../constants/textos';
+import { useSelector } from 'react-redux';
 
 const PerfilScreen = props => {
-
-    
+    const personaLog = useSelector(estado => estado.personas.personas);
     return (
-        <ScrollView>
-            <View style={styles.screen}>
-                <ImageBackground style={styles.head} source={require('../../assets/colores.jpg')} >
-                    <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
-                </ImageBackground>
 
+        <View style={styles.screen}>
+            <ImageBackground style={styles.head} source={require('../../assets/img/curvas_lider.png')} >
+                <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
+            </ImageBackground>
+            <ScrollView>
                 <View style={styles.body}>
                     <View style={styles.tituloContainer}>
-                        <Text style={styles.titulo}>`hgyu`</Text>
-                        <Text style={styles.rol}>Lider</Text>
+                        <Text style={styles.titulo}>{personaLog[0].nombre} {personaLog[0].apellido}</Text>
+                        <Text style={styles.rol}>Colaborador</Text>
                     </View>
 
                     <View style={styles.gustosContainer}>
                         <TouchableOpacity style={styles.infoContainer}>
-                            <Text style={styles.text}>Opcion 1 ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum electram ex</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.infoContainer}>
-                            <Text style={styles.text}>Opcion 2</Text>
+                            <Text style={styles.text}>{personaLog[0].correo}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     )
 };
 
 const styles = StyleSheet.create({
     screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 1
     },
     head: {
-        height: 200,
-        width: '100%',
         justifyContent: 'center',
-        marginBottom: 40
+        width: '100%',
+        height: 120,
+        marginBottom: 35
     },
     avatar: {
         width: 100,
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    gustosContainer:{
+    gustosContainer: {
         marginTop: 20
     }
 });

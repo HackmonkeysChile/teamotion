@@ -18,7 +18,7 @@ class Tareas {
         const parametros = new sql.Request(conexion);
         parametros.input('ID_PERSONA', sql.Int, this.ID_PERSONA);
 
-        const Prodecimiento = 'OBTENER_TAREAS_PERSONA';
+        const Prodecimiento = 'CONSULTAR_TAREAS_DE_PERSONA';
 
         return new Promise((resolve, reject) => {
             Conexion.ConsultaQuery(Prodecimiento, parametros, conexion, (err, tareaDB) => {

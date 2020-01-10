@@ -4,7 +4,9 @@ import {
     Text,
     Button,
     StyleSheet,
-    FlatList, TouchableOpacity
+    FlatList,
+    TouchableOpacity,
+    Image
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -12,39 +14,45 @@ import textos from '../constants/textos';
 import colores from '../constants/colores';
 import { useSelector, useDispatch } from "react-redux";
 import * as emocionesAction from "../store/actions/emociones";
+import * as personasAction from "../store/actions/personas";
+import * as dailyAction from "../store/actions/daily";
+
+
 
 const renderGrid = (itemData) => {
     return (
         <View style={styles.gridData}>
-            <Ionicons
-                name="md-happy"
-                size={50}
-                style={{
-                    alignContent: 'center'
-                }}
-            />
-            <Text style={{
-                fontSize: textos.texto
-            }}>{itemData.item.nombre}</Text>
+            <TouchableOpacity >
+                <Ionicons
+                    name="md-happy"
+                    size={50}
+                    style={{ alignContent: 'center' }} />
+            </TouchableOpacity>
+            <Text style={styles.nombreEmocion}>{itemData.item.nombre}</Text>
         </View>
-    );
-};
-
-const iconito = () => {
-    return (
-        <FontAwesome name="check"
-            size={35}
-            color={'white'}
-            style={{
-                alignContent: 'center'
-            }}
-        />
     );
 };
 
 const SeleccionarEmocionScreen = props => {
     const emociones = useSelector(estado => estado.emociones.emociones);
     const dispatch = useDispatch();
+
+    const guardar = async () => {
+        let accion;
+        accion = personasAction.autenticarPersona(formState.inputValues.correo, formState.inputValues.clave)
+        setError(null);
+        setIsLoading(true);
+        try {
+            await dispatch(accion);
+            setAuth(true);
+
+        } catch (err) {
+            setError(err.message);
+        }
+        setIsLoading(false);
+    };
+
+
 
     useEffect(() => {
         dispatch(emocionesAction.traerEmociones());
@@ -58,7 +66,6 @@ const SeleccionarEmocionScreen = props => {
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>Selecciona una emoción:</Text>
                 </View>
-
                 <FlatList
                     data={emociones}
                     horizontal={true}
@@ -66,6 +73,8 @@ const SeleccionarEmocionScreen = props => {
                     keyExtractor={(renderGrid, index) => index.toString()}
                 />
             </View>
+
+                
 
             <View style={styles.foot}>
                 <View style={styles.contentBoton} >
@@ -120,6 +129,10 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: '8%'
     },
+    emocionesContainer:{
+        flex: 1,
+        padding: '2%'
+    },
     title: {
         color: colores.letras,
         fontSize: textos.titulo,
@@ -131,6 +144,11 @@ const styles = StyleSheet.create({
         fontSize: textos.subtitulo,
         textAlign: textos.alignTexto,
         fontFamily: 'open-sans',
+    },
+    nombreEmocion: {
+        fontSize: textos.texto,
+        textAlign: textos.alignTexto,
+        fontFamily: 'open-sans'
     },
     textContainer: {
         justifyContent: 'flex-start',
@@ -156,7 +174,7 @@ const styles = StyleSheet.create({
         margin: 15,
         height: 150,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     foot: {
         flex: 1,

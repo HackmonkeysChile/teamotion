@@ -1,11 +1,22 @@
 
 import React, { useState, useReducer, useCallback, useEffect } from 'react';
-import { ScrollView, View, StyleSheet, Text, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import {
+    ScrollView,
+    View,
+    StyleSheet,
+    Text,
+    KeyboardAvoidingView,
+    TouchableOpacity,
+    ActivityIndicator,
+    Alert,
+    Image,
+    ImageBackground
+} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import colores from '../constants/colores';
 import textos from '../constants/textos';
 import Input from '../components/Input';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as personasAction from "../store/actions/personas";
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
@@ -14,7 +25,8 @@ const formReducer = (state, action) => {
     if (action.type === FORM_INPUT_UPDATE) {
         const updatedValues = {
             ...state.inputValues,
-            [action.input]: action.value
+            [action.input]: action.value,
+            
         };
         const updatedValidities = {
             ...state.inputValidities,
@@ -56,13 +68,12 @@ const AutenticacionScreen = props => {
         if (error) {
             Alert.alert('Ha ocurrido un error!', error, [{ text: 'Okey' }])
         }
-        if(auth)
-        {
-            if(personas.length >0 ) {
+        if (auth) {
+            if (personas.length > 0) {
                 if (personas[0].idRol === 1) {
-                    props.navigation.navigate('MenuLider',{personaAuth : personas[0]});
+                    props.navigation.navigate('MenuLider', { personaAuth: personas[0] });
                 } else if (personas[0].idRol === 2) {
-                    props.navigation.navigate('Menu', {personaAuth: personas[0]});
+                    props.navigation.navigate('Menu', { personaAuth: personas[0] });
                 }
             }
         }
@@ -80,7 +91,6 @@ const AutenticacionScreen = props => {
             setAuth(true);
 
         } catch (err) {
-            console.log(err);
             setError(err.message);
         }
         setIsLoading(false);
@@ -100,8 +110,7 @@ const AutenticacionScreen = props => {
     );
 
     return (
-        <KeyboardAvoidingView behavior="padding"
-            keyboardVerticalOffset={50} style={styles.key}>
+        <View style={styles.screen}>
             <View style={styles.card}>
                 <ScrollView>
                     <View style={styles.titleContainer}>
@@ -119,7 +128,6 @@ const AutenticacionScreen = props => {
                             errorText="Ingrese un correo valido"
                             onInputChange={inputChangeHandler}
                             initialValue=""
-
                         />
                         <Input
                             id="clave"
@@ -154,26 +162,23 @@ const AutenticacionScreen = props => {
                 </ScrollView>
             </View>
 
-        </KeyboardAvoidingView>
+            <ImageBackground source={require('../assets/img/curvas_1.png')} style={styles.img} />
+
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    key: {
+    screen: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%'
     },
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     card: {
         minWidth: 300,
         maxWidth: 800,
-        maxHeight: 390,
+        maxHeight: 400,
     },
     formControl: {
         flex: 1,
@@ -194,7 +199,7 @@ const styles = StyleSheet.create({
     titleContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom:20
+        marginBottom: 20
     },
     buttonView: {
         height: 55,
@@ -213,6 +218,22 @@ const styles = StyleSheet.create({
         backgroundColor: colores.secundario,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    foot: {
+        flex: 1,
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 0,
+        justifyContent: 'center'
+    },
+    img: {
+        flex: 1,
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 0,
+        height: 175,
+        width: '100%',
+        justifyContent: 'center',
     }
 });
 

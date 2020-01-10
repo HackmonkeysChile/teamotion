@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    ScrollView,
+    Button
+} from 'react-native';
 import {FontAwesome} from '@expo/vector-icons';
 import colores from '../../constants/colores';
 import textos from '../../constants/textos';
 import TareasContainer from '../../components/Tareas';
+import { useSelector } from 'react-redux';
 
 const TareasScreen = props => {
+    const personaLog=useSelector(estado=>estado.personas.personas);
+
     return (
         <ScrollView>
             <View style={styles.screen}>
@@ -13,7 +22,9 @@ const TareasScreen = props => {
                     <Text style={styles.superTitle}>MIS METAS</Text>
                     <Text style={styles.text}>Screen Metas</Text>
                 </View>
+                <Button title="console log" onPress={()=> console.log(personaLog)}/>
                 <TareasContainer/>
+
                 <TareasContainer/>
                 <TareasContainer/>
                 <TareasContainer/>
