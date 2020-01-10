@@ -20,11 +20,12 @@ class Personas {
 
         parametros.input('CORREO', sql.VarChar, this.CORREO);
         parametros.input('CLAVE', sql.VarChar, this.CLAVE);
-        console.log(this.CORREO);
+    
         const Procedimiento = 'AUTENTICAR_PERSONA'
         return new Promise((resolve, reject) => {
             Conexion.ConsultaQuery(Procedimiento, parametros, conexion, (err, respuesta) => {
                 if(err){
+                    
                     reject(err);
                 }else{
                     resolve(respuesta);

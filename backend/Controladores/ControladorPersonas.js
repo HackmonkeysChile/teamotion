@@ -11,15 +11,15 @@ router.post('/Autenticar', (req, res) => {
 
     const data = _.pick(req.body, ['correo', 'clave']);
 
-    console.log(req.body);
-
     persona.CORREO = data.correo;
     persona.CLAVE = data.clave;
-
+    
     persona.Login()
         .then(resp => {
-
-            console.log(resp);
+            if(resp.recordset.length === 0)
+            {
+                return Promise.reject('Datos invalidos');
+            }
     
             objRespuestaServicio.Respuesta = 'OK';
             objRespuestaServicio.Descripcion = resp.recordset;
@@ -28,7 +28,7 @@ router.post('/Autenticar', (req, res) => {
         })
         .catch(err => {
             objRespuestaServicio.Respuesta = 'NOK';
-            objRespuestaServicio.Descripcion_Error = erter;
+            objRespuestaServicio.Descripcion_Error = err;
 
             Response.error(req, res, objRespuestaServicio, 500, 'Se cae al autenticar una persona');
         });

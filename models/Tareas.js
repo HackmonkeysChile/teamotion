@@ -1,8 +1,11 @@
 class Tareas{
-    constructor (id, descripcion, estado){
+    constructor (id, titulo, fecha, idEstado, idPersona, descripcion){
         this.id=id;
+        this.titulo=titulo;
+        this.fecha=fecha;
+        this.idEstado=idEstado;
+        this.idPersona=idPersona;
         this.descripcion=descripcion;
-        this.estado=estado;
     }
 }
 export default Tareas;

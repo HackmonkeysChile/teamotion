@@ -1,12 +1,11 @@
 
-
 import React, { useState, useReducer, useCallback, useEffect } from 'react';
 import { ScrollView, View, StyleSheet, Text, KeyboardAvoidingView, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import colores from '../constants/colores';
 import textos from '../constants/textos';
 import Input from '../components/Input';
-import {  useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import * as personasAction from "../store/actions/personas";
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
@@ -37,6 +36,7 @@ const formReducer = (state, action) => {
 const AutenticacionScreen = props => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [auth, setAuth] = useState(false);
     const dispatch = useDispatch();
 
     const [formState, dispatchFormState] = useReducer(formReducer, {
@@ -51,31 +51,41 @@ const AutenticacionScreen = props => {
         formIsValid: false
     });
 
+    const personas = useSelector(estado => estado.personas.personas);
     useEffect(() => {
         if (error) {
             Alert.alert('Ha ocurrido un error!', error, [{ text: 'Okey' }])
         }
+        if(auth)
+        {
+            if(personas.length >0 ) {
+                if (personas[0].idRol === 1) {
+                    props.navigation.navigate('MenuLider',{personaAuth : personas[0]});
+                } else if (personas[0].idRol === 2) {
+                    props.navigation.navigate('Menu', {personaAuth: personas[0]});
+                }
+            }
+        }
     }, [
-        error
+        error, auth
     ]);
 
     const logear = async () => {
         let accion;
         accion = personasAction.autenticarPersona(formState.inputValues.correo, formState.inputValues.clave)
-        console.log(formState.inputValues.correo);
         setError(null);
         setIsLoading(true);
-
         try {
             await dispatch(accion);
-            props.navigation.navigate('Menu');
+            setAuth(true);
+
         } catch (err) {
             console.log(err);
             setError(err.message);
         }
-
         setIsLoading(false);
     };
+
 
     const inputChangeHandler = useCallback(
         (inputIdentifier, inputValue, inputValidity) => {

@@ -6,17 +6,12 @@ import {
     StyleSheet,
     FlatList, TouchableOpacity
 } from 'react-native';
-
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-
 import textos from '../constants/textos';
 import colores from '../constants/colores';
-
-
 import { useSelector, useDispatch } from "react-redux";
 import * as emocionesAction from "../store/actions/emociones";
-
 
 const renderGrid = (itemData) => {
     return (
@@ -71,10 +66,6 @@ const SeleccionarEmocionScreen = props => {
                     keyExtractor={(renderGrid, index) => index.toString()}
                 />
             </View>
-
-
-
-
 
             <View style={styles.foot}>
                 <View style={styles.contentBoton} >
