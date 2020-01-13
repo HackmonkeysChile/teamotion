@@ -5,13 +5,13 @@ const estadoInicial ={
     daily:[]
 }
 
-const personasReducer=(estado=estadoInicial, accion)=>{
+const dailyReducer=(estado=estadoInicial, accion)=>{
     switch (accion.type){
         case INSERTAR_DAILY:
             return{
-                
+                daily: accion.daily
             }; 
     }
-    return estado;
+    return daily;
 }
 export default dailyReducer;

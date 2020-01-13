@@ -1,31 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-
+import AwesomeAlert from 'react-native-awesome-alerts';
 import textos from '../constants/textos';
 import colores from '../constants/colores';
 
 const Tareas = props => {
     return (
-        <View style={styles.containerTareas}>
-            <View style={styles.container}>
-                <View style={styles.containerTarea}>
-                    <Text style={styles.texto}><Text style={styles.titulo}>Titulo: </Text>Here's an example. A common feature jiji request from developers familiar with the web is background-image</Text>
-                </View>
-                <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button}>
-                        <FontAwesome name="check"
-                            size={15}
-                            color={'white'}
-                            style={{
-                                alignContent: 'center'
-                            }} />
-                    </TouchableOpacity >
-
-                </View>
+        <View style={styles.container}>
+            <View style={styles.containerTarea}>
+                <Text style={styles.texto}><Text style={styles.titulo}>{props.titulo}: </Text>{props.descripcion}</Text>
             </View>
-            <View style={styles.containerHr}>
-            <View style={styles.hr}></View>
+
+            <View style={styles.containerButton}>
+                <TouchableOpacity style={styles.button} onPress={() => showAlert(true)}>
+                    <FontAwesome name="check"
+                        size={15}
+                        color={'white'}
+                        style={{
+                            alignContent: 'center'
+                        }} />
+                </TouchableOpacity >
+                <Text style={styles.textoPequeño}>Terminada</Text>
             </View>
         </View>
     );
@@ -35,16 +31,24 @@ const styles = StyleSheet.create({
     containerTareas: {
         flex: 1,
         width: '100%',
+        backgroundColor: 'blue'
     },
     container: {
-        flex: 1,
-        width: '95%',
+        width: '100%',
         flexDirection: 'row',
+        marginBottom: 15
     },
     containerTarea: {
         flex: 1,
         flexDirection: 'row',
-        width:'95%'
+        paddingVertical:5,
+        paddingHorizontal:15,
+        flexDirection: 'row',
+        justifyContent:'flex-start',
+        alignItems: 'center',
+        borderRadius: 30,
+        backgroundColor: colores.secundario,
+
     },
     titulo: {
         fontFamily: 'open-sans-bold',
@@ -58,30 +62,25 @@ const styles = StyleSheet.create({
         color: colores.letras,
         textAlign: 'justify'
     },
+    textoPequeño: {
+        fontSize: textos.miniTexto,
+        fontFamily: 'open-sans',
+        color: colores.letras,
+        textAlign: 'justify',
+    },
     containerButton: {
-        marginLeft: 10,
-        width:'5%'
+        width: '15%',
+        marginLeft: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     button: {
-        marginTop: 3,
         backgroundColor: '#05D913',
         height: 32,
         width: 32,
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    containerHr:{
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical:10
-    },
-    hr: {
-        borderBottomColor: 'rgb(237, 237, 237)',
-        borderBottomWidth: 1,
-        width: '50%',
-        height:0
-
     }
 });
 

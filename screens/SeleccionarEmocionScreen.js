@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -6,7 +6,8 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
-    Image
+    Image,
+    ScrollView, Alert, ActivityIndicator,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -16,65 +17,91 @@ import { useSelector, useDispatch } from "react-redux";
 import * as emocionesAction from "../store/actions/emociones";
 import * as personasAction from "../store/actions/personas";
 import * as dailyAction from "../store/actions/daily";
+import Spinner from 'react-native-loading-spinner-overlay';
 
-
-
-const renderGrid = (itemData) => {
-    return (
-        <View style={styles.gridData}>
-            <TouchableOpacity >
-                <Ionicons
-                    name="md-happy"
-                    size={50}
-                    style={{ alignContent: 'center' }} />
-            </TouchableOpacity>
-            <Text style={styles.nombreEmocion}>{itemData.item.nombre}</Text>
-        </View>
-    );
-};
 
 const SeleccionarEmocionScreen = props => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [emocion, setEmocion] = useState('');
+    const [error, setError] = useState(false);
+    const [guardado, setGuardado] = useState(false);
+
+    const personaLog = useSelector(estado => estado.personas.personas);
     const emociones = useSelector(estado => estado.emociones.emociones);
     const dispatch = useDispatch();
 
+    const renderGrid = (itemData) => {
+        return (
+            <View style={styles.gridData}>
+                <TouchableOpacity onPress={() => setEmocion(itemData.item.id)}>
+                    <Ionicons
+                        name="md-happy"
+                        size={50}
+                        style={{ alignContent: 'center' }} />
+                </TouchableOpacity>
+                <Text style={styles.nombreEmocion}>{itemData.item.nombre}</Text>
+            </View>
+        );
+    };
+    useEffect(() => {
+        dispatch(emocionesAction.traerEmociones());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (error) {
+            Alert.alert('Ha ocurrido un error!', error, [{ text: 'Okey' }])
+        }
+        if (guardado) {
+            props.navigation.navigate('HomePage');
+            setGuardado(false);
+        }
+    }, [
+        error, guardado
+    ]);
+
     const guardar = async () => {
         let accion;
-        accion = personasAction.autenticarPersona(formState.inputValues.correo, formState.inputValues.clave)
+        let idPersona = personaLog[0].id;
+        let idEmocion = parseInt(emocion, 10);
+
+        accion = dailyAction.ingresarDaily(idPersona, idEmocion);
         setError(null);
         setIsLoading(true);
         try {
             await dispatch(accion);
-            setAuth(true);
+            setGuardado(true);
 
         } catch (err) {
-            setError(err.message);
+            setError(true);
         }
         setIsLoading(false);
+
     };
 
-
-
-    useEffect(() => {
-        dispatch(emocionesAction.traerEmociones());
-    }, [dispatch]);
     return (
         <View style={styles.screen}>
-            <View style={styles.publicaciones}>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>¿Cómo te sientes hoy?</Text>
+            <Spinner
+                visible={isLoading}
+                //Texto
+                textContent={''}
+                textStyle={styles.spinnerTextStyle}
+            />
+            <ScrollView>
+                <View style={styles.publicaciones}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.title}>¿Cómo te sientes hoy?</Text>
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}>Selecciona una emoción:</Text>
+                    </View>
+                    <FlatList
+                        data={emociones}
+                        horizontal={true}
+                        renderItem={renderGrid}
+                        keyExtractor={(renderGrid, index) => index.toString()}
+                    />
                 </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>Selecciona una emoción:</Text>
-                </View>
-                <FlatList
-                    data={emociones}
-                    horizontal={true}
-                    renderItem={renderGrid}
-                    keyExtractor={(renderGrid, index) => index.toString()}
-                />
-            </View>
-
-                
+            </ScrollView>
 
             <View style={styles.foot}>
                 <View style={styles.contentBoton} >
@@ -95,10 +122,9 @@ const SeleccionarEmocionScreen = props => {
                 <View style={{ width: '34%' }} />
                 <View style={styles.contentBoton}  >
                     <TouchableOpacity
-                        onPress={() => { props.navigation.navigate('HomePage') }}
+                        onPress={guardar}
                         style={styles.buttonView}
-                        activeOpacity={.5}
-                    >
+                        activeOpacity={.5} >
                         <FontAwesome name="check"
                             size={35}
                             color={'white'}
@@ -110,6 +136,7 @@ const SeleccionarEmocionScreen = props => {
                 </View>
             </View>
         </View>
+
     )
 };
 
@@ -129,7 +156,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: '8%'
     },
-    emocionesContainer:{
+    emocionesContainer: {
         flex: 1,
         padding: '2%'
     },
@@ -197,7 +224,10 @@ const styles = StyleSheet.create({
         width: '33%',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    }, 
+    spinnerTextStyle: {
+        color: '#FFF',
+    },
 
 });
 

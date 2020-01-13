@@ -8,10 +8,13 @@ import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import emocionesReducer from "./store/reducers/emociones";
 import personaReducer from "./store/reducers/personas";
+import dailyReducer from "./store/reducers/daily";
+import tareasReducer from "./store/reducers/tareas";
 
 const rootReducer = combineReducers({
   emociones: emocionesReducer,
-  personas: personaReducer
+  personas: personaReducer,
+  tareas: tareasReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

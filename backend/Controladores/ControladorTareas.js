@@ -28,7 +28,6 @@ router.get('/Obtener', (req, res) => {
 router.get('/TareasPersona/:id_persona', (req, res) => {
     const tarea = new Tarea;
     tarea.ID_PERSONA = req.params.id_persona;
-    console.log(tarea.ID_PERSONA);
     
     tarea.Obtener_Por_Id_Persona()
         .then(resp => {
@@ -47,6 +46,29 @@ router.get('/TareasPersona/:id_persona', (req, res) => {
 
             Response.error(req, res, ObjRespuestaServicio, 404, 'Se cae al consultar las tareas por persona');
         });
+});
+
+router.put('/ActualizarEstado/:id_tarea', (req, res) => {
+    const tarea = new Tarea;
+    const objRespuestaServicio = new RespuestaServicio;
+
+    tarea.ID_TAREA = req.params.id_tarea;
+    const data = _.pick(req.body, ['id_estado']);
+    tarea.ID_ESTADO = data.id_estado;
+
+    tarea.Actualizar_Estado()
+    .then(resp => {
+        ObjRespuestaServicio.Respuesta = 'OK';
+        ObjRespuestaServicio.Descripcion = 'Se ha actualizado el estado de la tarea';
+
+        Response.success(req, res, ObjRespuestaServicio, 200);
+    })
+    .catch(err => {
+        ObjRespuestaServicio.Respuesta = 'NOK';
+        ObjRespuestaServicio.Descripcion_Error = err;
+
+        Response.error(req, res, ObjRespuestaServicio, 500, 'Se cae al actualizar el estado de las tareas');
+    });
 });
 
 router.delete('/EliminarPorId', (req, res) => {

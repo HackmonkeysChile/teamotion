@@ -5,11 +5,9 @@ import {
     View,
     StyleSheet,
     Text,
-    KeyboardAvoidingView,
     TouchableOpacity,
     ActivityIndicator,
     Alert,
-    Image,
     ImageBackground
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
@@ -17,7 +15,7 @@ import colores from '../constants/colores';
 import textos from '../constants/textos';
 import Input from '../components/Input';
 import { useDispatch, useSelector } from "react-redux";
-
+import * as tareasAction from "../store/actions/tareas";
 import * as personasAction from "../store/actions/personas";
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -26,7 +24,7 @@ const formReducer = (state, action) => {
         const updatedValues = {
             ...state.inputValues,
             [action.input]: action.value,
-            
+
         };
         const updatedValidities = {
             ...state.inputValidities,
@@ -64,12 +62,18 @@ const AutenticacionScreen = props => {
     });
 
     const personas = useSelector(estado => estado.personas.personas);
+
     useEffect(() => {
         if (error) {
             Alert.alert('Ha ocurrido un error!', error, [{ text: 'Okey' }])
         }
         if (auth) {
             if (personas.length > 0) {
+                traer = tareasAction.obtenerPorID(personas[0].id);
+                try {
+                    dispatch(traer);
+                } catch (err) {
+                }
                 if (personas[0].idRol === 1) {
                     props.navigation.navigate('MenuLider', { personaAuth: personas[0] });
                 } else if (personas[0].idRol === 2) {
@@ -83,7 +87,8 @@ const AutenticacionScreen = props => {
 
     const logear = async () => {
         let accion;
-        accion = personasAction.autenticarPersona(formState.inputValues.correo, formState.inputValues.clave)
+        accion = personasAction.autenticarPersona(formState.inputValues.correo, formState.inputValues.clave);
+
         setError(null);
         setIsLoading(true);
         try {

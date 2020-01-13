@@ -9,17 +9,15 @@ router.post('/Crear', (req, res) =>{
     const daily = new Daily;
     const objRespuestaServicio = new RespuestaServicio;
 
-    const data = _.pick(req.body, ['fecha', 'id_persona', 'id_emocion']);
+    const data = _.pick(req.body, ['id_persona', 'id_emocion']);
 
-    daily.FECHA = data.fecha;
     daily.ID_PERSONA = data.id_persona;
     daily.ID_EMOCION = data.id_emocion;
 
     daily.Crear()
         .then(resp => {
             objRespuestaServicio.Respuesta = 'OK';
-            objRespuestaServicio.Descripcion = resp.recordset;
-
+            objRespuestaServicio.Descripcion = 'Se ha ingresado una nueva Daily';
             Response.success(req, res, objRespuestaServicio, 200);
         })
         .catch(err => {

@@ -49,6 +49,25 @@ class Tareas {
         });
     }
 
+    Actualizar_Estado(){
+        const conexion = new sql.ConnectionPool(dbconfig);
+        const Parametros = new sql.Request(conexion);
+
+        Parametros.input('ID_TAREA', sql.Int, this.ID_TAREA);
+        Parametros.input('ID_ESTADO', sql.Int, this.ID_ESTADO);
+        const Prodecimiento = 'ACTUALIZAR_ESTADO_TAREA';
+
+        return new Promise((resolve, reject) => {
+            Conexion.ConsultaQuery(Prodecimiento, Parametros, conexion, (err, tareaDB) => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(tareaDB);
+                }
+            });
+        });
+    }
+
     Consultar_Por_ID(){}
 
     Actualizar_Por_ID(){}

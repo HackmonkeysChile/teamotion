@@ -14,7 +14,6 @@ class Daily {
         const conexion = new sql.ConnectionPool(dbconfig);
         const parametros = new sql.Request(conexion);
 
-        parametros.input('FECHA', sql.Date, this.FECHA);
         parametros.input('ID_PERSONA', sql.Int, this.ID_PERSONA);
         parametros.input('ID_EMOCION', sql.Int, this.ID_EMOCION);
 
