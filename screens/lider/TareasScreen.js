@@ -1,19 +1,39 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { 
     View, 
     Text, 
     StyleSheet, 
     ScrollView,
-    Button
+    Button,
+    FlatList,
+
 } from 'react-native';
 import {FontAwesome} from '@expo/vector-icons';
 import colores from '../../constants/colores';
 import textos from '../../constants/textos';
 import TareasContainer from '../../components/Tareas';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import * as tareasAction from "../../store/actions/tareas";
 const TareasScreen = props => {
-    const personaLog=useSelector(estado=>estado.personas.personas);
+    const tareas = useSelector(estado=>estado.tareas.tareasTodas);
+
+    const dispatch = useDispatch();
+
+    const renderGrid = (itemData) => {
+        return (
+            <View style={styles.gridData}>
+                <View style={styles.container}>
+                    <View style={styles.containerTarea}>
+                        <Text style={styles.texto}><Text style={styles.titulo}>{itemData.item.titulo}: </Text>{itemData.item.descripcion}</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    };
+
+    useEffect(() => {
+        dispatch(tareasAction.obtenerTareas());
+    }, [dispatch]);
 
     return (
         <ScrollView>
@@ -22,12 +42,12 @@ const TareasScreen = props => {
                     <Text style={styles.superTitle}>MIS METAS</Text>
                     <Text style={styles.text}>Screen Metas</Text>
                 </View>
-                <Button title="console log" onPress={()=> console.log(personaLog)}/>
-                <TareasContainer/>
-
-                <TareasContainer/>
-                <TareasContainer/>
-                <TareasContainer/>
+                <FlatList
+                        data={tareas}
+                        renderItem={renderGrid}
+                        style={styles.flat}
+                        keyExtractor={(renderGrid, index) => index.toString()}
+                    />
             </View>
         </ScrollView>
     )

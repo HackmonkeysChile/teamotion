@@ -10,6 +10,7 @@ import emocionesReducer from "./store/reducers/emociones";
 import personaReducer from "./store/reducers/personas";
 import dailyReducer from "./store/reducers/daily";
 import tareasReducer from "./store/reducers/tareas";
+import estadoTareasReducer from "./store/reducers/estadoTareas";
 
 const rootReducer = combineReducers({
   emociones: emocionesReducer,

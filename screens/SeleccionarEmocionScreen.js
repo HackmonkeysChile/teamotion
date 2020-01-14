@@ -25,23 +25,68 @@ const SeleccionarEmocionScreen = props => {
     const [emocion, setEmocion] = useState('');
     const [error, setError] = useState(false);
     const [guardado, setGuardado] = useState(false);
-
+    const [imagen1, setImagen1] = useState(false);
+    const [imagen2, setImagen2] = useState(false);
+    const [imagen3, setImagen3] = useState(false);
+    const [imagen4, setImagen4] = useState(false);
     const personaLog = useSelector(estado => estado.personas.personas);
     const emociones = useSelector(estado => estado.emociones.emociones);
     const dispatch = useDispatch();
 
     const renderGrid = (itemData) => {
-        return (
-            <View style={styles.gridData}>
-                <TouchableOpacity onPress={() => setEmocion(itemData.item.id)}>
-                    <Ionicons
-                        name="md-happy"
-                        size={50}
-                        style={{ alignContent: 'center' }} />
-                </TouchableOpacity>
-                <Text style={styles.nombreEmocion}>{itemData.item.nombre}</Text>
-            </View>
-        );
+        if (itemData.item.id === 1) {
+            return (
+                <View style={styles.gridData}>
+                    <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(true); setImagen2(false); setImagen3(false); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Image
+                            source={require('../assets/img/terrible.png')}
+                            style={imagen1?  styles.imgGrande :styles.img}
+                        />
+                    </TouchableOpacity>
+                    <Text 
+                    style={imagen1?  styles.nombreEmocionGrande :styles.nombreEmocion}
+                    >{itemData.item.nombre}</Text>
+                </View>
+            );
+        } else if (itemData.item.id === 2) {
+            return (
+                <View style={styles.gridData}>
+                    <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(false); setImagen2(true);  setImagen3(false); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Image
+                            source={require('../assets/img/no_muy_bien.png')}
+                            style={imagen2?  styles.imgGrande :styles.img}
+                          />
+                    </TouchableOpacity>
+                    <Text  style={imagen2?  styles.nombreEmocionGrande :styles.nombreEmocion}>{itemData.item.nombre}</Text>
+                </View>
+            );
+
+        } else if (itemData.item.id === 3) {
+            return (
+                <View style={styles.gridData}>
+                    <TouchableOpacity onPress={() => {setEmocion(itemData.item.id); setImagen1(false); setImagen2(false);  setImagen3(true); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Image
+                            source={require('../assets/img/bien.png')}
+                            style={imagen3?  styles.imgGrande :styles.img} />
+                    </TouchableOpacity>
+                    <Text  style={imagen3?  styles.nombreEmocionGrande :styles.nombreEmocion}>{itemData.item.nombre}</Text>
+                </View>
+            );
+        } else if (itemData.item.id === 4) {
+            return (
+                <View style={styles.gridData}>
+                    <TouchableOpacity 
+                    onPress={() => {setEmocion(itemData.item.id); setImagen1(false); setImagen2(false);  setImagen3(false); setImagen4(true);}}
+                    >
+                        <Image
+                            source={require('../assets/img/excelente.png')}
+                            style={imagen4?  styles.imgGrande :styles.img} />
+                    </TouchableOpacity>
+                    <Text  style={imagen4?  styles.nombreEmocionGrande :styles.nombreEmocion}>{itemData.item.nombre}</Text>
+                </View>
+            );
+        }
+
     };
     useEffect(() => {
         dispatch(emocionesAction.traerEmociones());
@@ -54,6 +99,10 @@ const SeleccionarEmocionScreen = props => {
         if (guardado) {
             props.navigation.navigate('HomePage');
             setGuardado(false);
+            setImagen1(false)
+            setImagen2(false)
+            setImagen3(false)
+            setImagen4(false)
         }
     }, [
         error, guardado
@@ -94,19 +143,39 @@ const SeleccionarEmocionScreen = props => {
                     <View style={styles.textContainer}>
                         <Text style={styles.text}>Selecciona una emoción:</Text>
                     </View>
-                    <FlatList
+                   
+                </View>
+                <View style={{ width: '100%', flexDirection: 'row',}}>
+                       <View style={{ width: '20%', height:550, marginTop:20}}>
+                       <Image source={require('../assets/img/curvas_4_izq.png')} style={{width:'100%', height:430}}/>
+                       </View>
+                       <FlatList
                         data={emociones}
-                        horizontal={true}
+                        horizontal={false}
                         renderItem={renderGrid}
+                        style={{ width: '60%', height:550}}
+                        contentContainerStyle={{
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
                         keyExtractor={(renderGrid, index) => index.toString()}
                     />
-                </View>
+                      <View style={{ width: '20%', height:550, marginTop:20}}>
+                          <Image source={require('../assets/img/curvas_4_der.png')} style={{width:'100%', height:430}}/>
+                      </View>
+                   </View>
             </ScrollView>
 
             <View style={styles.foot}>
                 <View style={styles.contentBoton} >
                     <TouchableOpacity
-                        onPress={() => { props.navigation.navigate('HomePage') }}
+                        onPress={() => { 
+                            props.navigation.navigate('HomePage') 
+                            setImagen1(false);
+                            setImagen2(false);
+                            setImagen3(false);
+                            setImagen4(false);
+                        }}
                         style={styles.buttonView}
                         activeOpacity={.5}
                     >
@@ -154,7 +223,8 @@ const styles = StyleSheet.create({
     },
     publicaciones: {
         flex: 1,
-        padding: '8%'
+        paddingHorizontal: '8%',
+        paddingVertical:25
     },
     emocionesContainer: {
         flex: 1,
@@ -174,13 +244,21 @@ const styles = StyleSheet.create({
     },
     nombreEmocion: {
         fontSize: textos.texto,
+        color:colores.letras,
         textAlign: textos.alignTexto,
-        fontFamily: 'open-sans'
+        fontFamily: 'open-sans',
+        marginTop:2,
+    },
+    nombreEmocionGrande: {
+        fontSize: textos.subtitulo,
+        color:colores.letras,
+        textAlign: textos.alignTexto,
+        fontFamily: 'open-sans-bold',
+        marginTop:2,
     },
     textContainer: {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        marginBottom: 10,
     },
     titleContainer: {
         justifyContent: 'center',
@@ -188,6 +266,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 20,
     },
+
     buttonView: {
         bottom: 30,
         height: 55,
@@ -198,10 +277,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     gridData: {
-        margin: 15,
-        height: 150,
+        marginTop: 0,
+        marginBottom:0,
+        height: 120,
         justifyContent: 'center',
         alignItems: 'center',
+        width: '50%'
     },
     foot: {
         flex: 1,
@@ -224,11 +305,21 @@ const styles = StyleSheet.create({
         width: '33%',
         justifyContent: 'center',
         alignItems: 'center'
-    }, 
+    },
     spinnerTextStyle: {
         color: '#FFF',
     },
 
+    img: {
+        alignContent: 'center',
+        height: 80,
+        width: 80
+    },
+    imgGrande: {
+        alignContent: 'center',
+        height: 100,
+        width: 100
+    }
 });
 
 export default SeleccionarEmocionScreen;

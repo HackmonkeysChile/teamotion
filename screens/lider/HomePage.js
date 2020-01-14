@@ -6,8 +6,6 @@ import textos from '../../constants/textos';
 
 
 const HomePage = props => {
-    const personaAuth = props.navigation.getParam('personaAuth',null);
-    console.log(personaAuth);
     
     return (
         <ScrollView>

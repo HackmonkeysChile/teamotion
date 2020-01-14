@@ -25,7 +25,7 @@ const PerfilScreen = props => {
                 <View style={styles.body}>
                     <View style={styles.tituloContainer}>
                         <Text style={styles.titulo}>{personaLog[0].nombre} {personaLog[0].apellido}</Text>
-                        <Text style={styles.rol}>Colaborador</Text>
+                        <Text style={styles.rol}>Líder</Text>
                     </View>
 
                     <View style={styles.gustosContainer}>

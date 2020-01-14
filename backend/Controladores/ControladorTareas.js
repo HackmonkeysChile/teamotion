@@ -48,7 +48,7 @@ router.get('/TareasPersona/:id_persona', (req, res) => {
         });
 });
 
-router.put('/ActualizarEstado/:id_tarea', (req, res) => {
+router.patch('/ActualizarEstado/:id_tarea', (req, res) => {
     const tarea = new Tarea;
     const objRespuestaServicio = new RespuestaServicio;
 

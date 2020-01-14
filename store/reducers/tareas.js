@@ -1,16 +1,20 @@
-import {OBTENER_TAREAS_PERSONA} from '../actions/tareas';
+import { OBTENER_TAREAS_PERSONA } from '../actions/tareas';
+import { ACTUALIZAR_ESTADO_TAREA } from '../actions/tareas';
+import { OBTENER_TAREAS } from '../actions/tareas';
 import Tareas from "../../models/Tareas";
 
-const estadoInicial ={
-    tareas:[]
+const estadoInicial = {
+    tareas: []
 }
 
-const tareasReducer=(estado=estadoInicial, accion)=>{
-    switch (accion.type){
+const tareasReducer = (estado = estadoInicial, accion) => {
+    switch (accion.type) {
         case OBTENER_TAREAS_PERSONA:
-            return{
-                tareas:accion.tareas
-            }; 
+            return {
+                tareas: accion.tareas
+            }
+        
+
     }
     return estado;
 }

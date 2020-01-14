@@ -4,7 +4,7 @@ export const AUTENTICAR_PERSONAS = 'AUTENTICAR_PERSONAS';
 export const autenticarPersona = (correo, clave) => {
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.16:3000/Personas/Autenticar", {
+            const respuesta = await fetch("http://192.168.0.12:3000/Personas/Autenticar", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

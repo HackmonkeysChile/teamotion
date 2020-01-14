@@ -15,9 +15,10 @@ import TareasScreenLider from '../screens/lider/TareasScreen';
 import EquiposScreen from '../screens/lider/EquiposScreen';
 
 import React from 'react';
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Image } from "react-native";
 
 import colores from '../constants/colores';
+import Daily from '../models/Daily';
 
 const AutenticarStack = createStackNavigator({
     Autenticar:{
@@ -77,18 +78,11 @@ const tabNavLider = createBottomTabNavigator({
                 height:80,
                 width: 80,
                 borderRadius: 58,
-                backgroundColor: colores.primario,
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <FontAwesome
-                name="plus"
-                size={45}
-                color={'white'}
-                style={{
-                    alignContent: 'center'
-                }}
-            />
+            <Image style={{height:80,
+                width: 80,}}  source={require('../assets/img/icono_team.png')} />
         </TouchableOpacity>
         },
     },
@@ -175,27 +169,23 @@ const tabNav = createBottomTabNavigator({
             tabBarVisible: false,
             tabBarIcon: 
             <TouchableOpacity
-            onPress={()=> {}}
+            
+            onPress={Daily}
             style={{
                 position: 'absolute',
-                bottom: -8,
+                bottom: 2,
+                marginLeft:6,
                 height:80,
                 width: 80,
                 borderRadius: 58,
-                backgroundColor: colores.primario,
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <FontAwesome
-                name="plus"
-                size={45}
-                color={'white'}
-                style={{
-                    alignContent: 'center'
-                }}
-            />
+            <Image style={{height:80,
+                width: 80,}}  source={require('../assets/img/icono_daily.png')} />
         </TouchableOpacity>
         },
+        
     },
     miPerfil: {
         screen: MiPerfil,
@@ -215,7 +205,7 @@ const tabNav = createBottomTabNavigator({
             height: 65,
             borderTopWidth: 15,
             borderBottomColor: colores.primario,
-            borderBottomWidth: 0
+            borderBottomWidth: 0,
         },
         labelStyle: {
             fontSize: 12,

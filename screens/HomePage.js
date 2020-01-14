@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, Platform } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, Platform, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import colores from '../constants/colores';
 import textos from '../constants/textos';
@@ -7,25 +7,49 @@ import textos from '../constants/textos';
 
 const HomePage = props => {
     return (
-        <ScrollView>
-            <View style={styles.screen}>
-                <View style={styles.publicaciones}>
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.title}>¡TEN UN BUEN DÍA!</Text>
-                    </View>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.text}>Publicación de hoy</Text>
-                    </View>
-                    <View style={styles.imgContainer}>
-                        <Image style={styles.img} source={require('../assets/img/hackmonkeys.jpg')} />
-                    </View>
+        <View style={styles.screen}>
+            <ScrollView>
+                <View style={styles.screen}>
+                    <View style={styles.publicaciones}>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>¡TEN UN BUEN DÍA!</Text>
+                        </View>
+                        <View style={styles.textContainer}>
+                            <Text style={styles.text}>Publicación de hoy</Text>
+                        </View>
 
+                        <ScrollView style={styles.imgContainer2}
+                            horizontal
+                            pagingEnabled
+                            showsHorizontalScrollIndicator={false}
+                        >
+                            <Image style={styles.img2} source={require('../assets/img/hackmonkeys.jpg')} />
+                            <Image style={styles.img2} source={require('../assets/img/hackmonkeys.jpg')} />
+
+                        </ScrollView>
+
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+
+        </View>
     )
 };
+/*
 
+                        <View style={styles.imgContainer}>
+                            <Image style={styles.img} source={require('../assets/img/hackmonkeys.jpg')} />
+                        </View>
+ <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {props.navigation.navigate('Daily')}}
+            style={styles.TouchableOpacityStyle}>
+            <Image
+                source={require('../assets/img/icono_daily.png')}
+                style={styles.FloatingButtonStyle}
+            />
+        </TouchableOpacity>
+*/
 const styles = StyleSheet.create({
     title: {
         color: colores.letras,
@@ -41,6 +65,7 @@ const styles = StyleSheet.create({
     },
     screen: {
         flex: 1,
+        justifyContent: 'center',
     },
     textContainer: {
         justifyContent: 'flex-start',
@@ -62,10 +87,37 @@ const styles = StyleSheet.create({
         height: 345,
         borderRadius: 30,
     },
+    img2: {
+        width: 345,
+        height: 345,
+        borderRadius: 30,
+    },
     imgContainer: {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 12,
-    }
+    },
+    imgContainer2: {
+        marginTop: 12,
+        width:345,
+        height:440
+    },
+    TouchableOpacityStyle: {
+        position: 'relative',
+        width: 80,
+        height: 80,
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 0,
+        bottom: -10,
+
+    },
+
+    FloatingButtonStyle: {
+        resizeMode: 'contain',
+        width: 80,
+        height: 80,
+        //backgroundColor:'black'
+    },
 });
 export default HomePage;

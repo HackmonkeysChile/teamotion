@@ -25,7 +25,6 @@ class Tareas {
                 if(err){
                     reject(err);
                 }else{
-                    console.log(tareaDB);
                     resolve(tareaDB);
                 }
             });

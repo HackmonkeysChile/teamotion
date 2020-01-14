@@ -8,8 +8,10 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     Alert,
-    ImageBackground
+    ImageBackground,
+    Image
 } from 'react-native';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import { FontAwesome } from '@expo/vector-icons';
 import colores from '../constants/colores';
 import textos from '../constants/textos';
@@ -17,7 +19,9 @@ import Input from '../components/Input';
 import { useDispatch, useSelector } from "react-redux";
 import * as tareasAction from "../store/actions/tareas";
 import * as personasAction from "../store/actions/personas";
+
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+
 
 const formReducer = (state, action) => {
     if (action.type === FORM_INPUT_UPDATE) {
@@ -44,11 +48,13 @@ const formReducer = (state, action) => {
 };
 
 const AutenticacionScreen = props => {
+    const [showAlert, setShowAlert] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
     const [auth, setAuth] = useState(false);
+    const [placeholderCorreo, setPlaceholderCorreo] = useState('CORREO');
+    const [placeholderClave, setPlaceholderClave] = useState('CLAVE');
     const dispatch = useDispatch();
-
     const [formState, dispatchFormState] = useReducer(formReducer, {
         inputValues: {
             correo: '',
@@ -65,7 +71,7 @@ const AutenticacionScreen = props => {
 
     useEffect(() => {
         if (error) {
-            Alert.alert('Ha ocurrido un error!', error, [{ text: 'Okey' }])
+            setShowAlert(true)
         }
         if (auth) {
             if (personas.length > 0) {
@@ -116,6 +122,7 @@ const AutenticacionScreen = props => {
 
     return (
         <View style={styles.screen}>
+             
             <View style={styles.card}>
                 <ScrollView>
                     <View style={styles.titleContainer}>
@@ -130,6 +137,9 @@ const AutenticacionScreen = props => {
                             email
                             autoCapitalize="none"
                             minLength={1}
+                            placeholder={placeholderCorreo}
+                            placeholderTextColor="white" 
+                            onFocus={()=>{setPlaceholderCorreo('')}}
                             errorText="Ingrese un correo valido"
                             onInputChange={inputChangeHandler}
                             initialValue=""
@@ -141,6 +151,9 @@ const AutenticacionScreen = props => {
                             required
                             minLength={1}
                             autoCapitalize="none"
+                            placeholder={placeholderClave}
+                            onFocus={()=>{setPlaceholderClave('')}}
+                            placeholderTextColor="white" 
                             errorText="Ingrese una clave valida"
                             onInputChange={inputChangeHandler}
                             initialValue=""
@@ -152,12 +165,8 @@ const AutenticacionScreen = props => {
 
                         ) : (
                                 <TouchableOpacity title="Login" onPress={logear} style={styles.buttonView}>
-                                    <FontAwesome name="check"
-                                        size={35}
-                                        color={'white'}
-                                        style={{
-                                            alignContent: 'center'
-                                        }} />
+                                    <Image style={styles.icono}  source={require('../assets/img/icono_check_login.png')} />
+                                   
                                 </TouchableOpacity>
                             )
                         }
@@ -169,6 +178,46 @@ const AutenticacionScreen = props => {
 
             <ImageBackground source={require('../assets/img/curvas_1.png')} style={styles.img} />
 
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                title="Datos invalidos"
+                message="Los datos ingresados no son validos, vuelva a ingresarlos nuevamente"
+                closeOnTouchOutside={false}
+                closeOnHardwareBackPress={false}
+                showCancelButton={false}
+                showConfirmButton={true}
+                cancelText={
+                    <FontAwesome name='arrow-left'
+                        size={20}
+                        color={'white'}
+                        style={{
+                            alignContent: 'center'
+                        }} />
+                }
+                confirmText={
+                    <FontAwesome name='check'
+                        size={20}
+                        color={'white'}
+                        style={{
+                            alignContent: 'center'
+                        }} />
+                }
+                confirmButtonColor="#DD6B55"
+                onCancelPressed={() => {
+                    setShowAlert(false)
+                }}
+                onConfirmPressed={() => {
+                    setShowAlert(false)
+                }}
+                
+                contentContainerStyle={{ backgroundColor: colores.primario, borderRadius: 20, width: '80%' }}
+                titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
+                messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
+                confirmButtonStyle={{ width: 45, height: 45, borderRadius: 30,justifyContent: 'center',
+                alignItems: 'center', backgroundColor:'#04D9D9', marginLeft:20,}}
+                
+            />
         </View>
     );
 };
@@ -211,7 +260,6 @@ const styles = StyleSheet.create({
         width: 55,
         marginTop: 80,
         borderRadius: 58,
-        backgroundColor: '#04D9D9',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -239,6 +287,10 @@ const styles = StyleSheet.create({
         height: 175,
         width: '100%',
         justifyContent: 'center',
+    },
+    icono:{
+        height: 55,
+        width: 55,
     }
 });
 
