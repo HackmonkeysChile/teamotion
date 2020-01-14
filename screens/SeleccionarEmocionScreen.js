@@ -39,7 +39,7 @@ const SeleccionarEmocionScreen = props => {
                 <View style={styles.gridData}>
                     <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(true); setImagen2(false); setImagen3(false); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Image
-                            source={require('../assets/img/terrible.png')}
+                            source={require('../assets/img/excelente.png')}
                             style={imagen1?  styles.imgGrande :styles.img}
                         />
                     </TouchableOpacity>
@@ -53,7 +53,7 @@ const SeleccionarEmocionScreen = props => {
                 <View style={styles.gridData}>
                     <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(false); setImagen2(true);  setImagen3(false); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Image
-                            source={require('../assets/img/no_muy_bien.png')}
+                            source={require('../assets/img/bien.png')}
                             style={imagen2?  styles.imgGrande :styles.img}
                           />
                     </TouchableOpacity>
@@ -66,7 +66,7 @@ const SeleccionarEmocionScreen = props => {
                 <View style={styles.gridData}>
                     <TouchableOpacity onPress={() => {setEmocion(itemData.item.id); setImagen1(false); setImagen2(false);  setImagen3(true); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Image
-                            source={require('../assets/img/bien.png')}
+                            source={require('../assets/img/no_muy_bien.png')}
                             style={imagen3?  styles.imgGrande :styles.img} />
                     </TouchableOpacity>
                     <Text  style={imagen3?  styles.nombreEmocionGrande :styles.nombreEmocion}>{itemData.item.nombre}</Text>
@@ -79,7 +79,7 @@ const SeleccionarEmocionScreen = props => {
                     onPress={() => {setEmocion(itemData.item.id); setImagen1(false); setImagen2(false);  setImagen3(false); setImagen4(true);}}
                     >
                         <Image
-                            source={require('../assets/img/excelente.png')}
+                            source={require('../assets/img/terrible.png')}
                             style={imagen4?  styles.imgGrande :styles.img} />
                     </TouchableOpacity>
                     <Text  style={imagen4?  styles.nombreEmocionGrande :styles.nombreEmocion}>{itemData.item.nombre}</Text>
@@ -312,8 +312,8 @@ const styles = StyleSheet.create({
 
     img: {
         alignContent: 'center',
-        height: 80,
-        width: 80
+        height: 70,
+        width: 70
     },
     imgGrande: {
         alignContent: 'center',
