@@ -34,6 +34,9 @@ const PerfilScreen = props => {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <TouchableOpacity style={styles.infoContainer} onPress={() => props.navigation.navigate('Login')}>
+                    <Text style={styles.text}>CERRAR</Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     )

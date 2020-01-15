@@ -4,7 +4,7 @@ export const INSERTAR_DAILY = 'INSERTAR_DAILY';
 export const ingresarDaily = (idPersona, idEmocion) => {
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.12:3000/Daily/Crear", {
+            const respuesta = await fetch("http://192.168.0.21:3000/Daily/Crear", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

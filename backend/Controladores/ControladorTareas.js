@@ -7,6 +7,31 @@ const RespuestaServicio = require('../Clases/RespuestaServicio');
 // objeto para respuestas estandarizadas
 let ObjRespuestaServicio = new RespuestaServicio;
 
+router.post('/Crear', (req, res) => {
+    const tarea = new Tarea;
+    const objRespuestaServicio = new RespuestaServicio;
+
+    const data = _.pick(req.body, ['titulo', 'id_persona','descripcion']);
+
+    tarea.TITULO = data.titulo;
+    tarea.ID_PERSONA =data.id_persona;
+    tarea.DESCRIPCION=data.descripcion;
+
+    tarea.Crear()
+        .then(resp => {
+            objRespuestaServicio.Respuesta = 'OK';
+            objRespuestaServicio.Descripcion = 'Guarda tarea';
+
+            Response.success(req, res, objRespuestaServicio, 200);
+        })
+        .catch(err => {
+            objRespuestaServicio.Respuesta = 'NOK';
+            objRespuestaServicio.Descripcion_Error = err;
+
+            Response.error(req, res, objRespuestaServicio, 200, 'Se cae al crear una tarea');
+        });
+});
+
 router.get('/Obtener', (req, res) => {
     const tarea = new Tarea;
 

@@ -4,7 +4,7 @@ export const OBTENER_TAREAS_PERSONA = 'OBTENER_TAREAS_PERSONA';
 export const obtenerPorID = (idPersona) => {
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.12:3000:3000/Tareas/TareasPersona/" + idPersona, {
+            const respuesta = await fetch("http://192.168.0.21:3000/Tareas/TareasPersona/" + idPersona, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -15,6 +15,8 @@ export const obtenerPorID = (idPersona) => {
                 throw new Error('Vuelva a ingresar sus datos');
             }
             const respuestaJson = await respuesta.json();
+            console.log(respuestaJson);
+        
             let tareas = [];
 
             respuestaJson.Descripcion.forEach(tarea => {
@@ -39,9 +41,8 @@ export const ACTUALIZAR_ESTADO_TAREA = 'ACTUALIZAR_ESTADO_TAREA';
 export const actualizarEstado = (idTarea,idEstado) => {
     
     return async dispatch => {
-        console.log('DISPATCH');
         try {
-            await fetch("http://192.168.0.12:3000/Tareas/ActualizarEstado/" + idTarea, {
+            await fetch("http://192.168.0.21:3000/Tareas/ActualizarEstado/" + idTarea, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -59,9 +60,10 @@ export const actualizarEstado = (idTarea,idEstado) => {
 
 export const OBTENER_TAREAS = 'OBTENER_TAREAS';
 export const obtenerTareas = () => {
+    
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.12:3000/Tareas/Obtener", {
+            const respuesta = await fetch("http://192.168.0.21:3000/Tareas/Obtener", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -72,10 +74,10 @@ export const obtenerTareas = () => {
                 throw new Error('Vuelva a ingresar sus datos');
             }
             const respuestaJson = await respuesta.json();
-            let todasTareas = [];
-
+            let tareas = [];
+            console.log(respuestaJson);
             respuestaJson.Descripcion.forEach(tarea => {
-                todasTareas.push(new Tareas(
+                tareas.push(new Tareas(
                     tarea.ID_TAREA,
                     tarea.TITULO,
                     tarea.FECHA,
@@ -84,9 +86,29 @@ export const obtenerTareas = () => {
                     tarea.DESCRIPCION));
             });
 
-            dispatch({ type: OBTENER_TAREAS_PERSONA, todasTareas: todasTareas });
+            dispatch({ type: OBTENER_TAREAS_PERSONA, tareas: tareas });
         } catch (e) {
             throw new Error(e);
         }
     }
 };
+
+export const INGRESAR_TAREA = 'INGRESAR_TAREA';
+export const ingresarTarea = (titulo, idPersona,descripcion) => {
+    return async dispatch => {
+        try {
+            await fetch("http://192.168.0.21:3000/Tareas/Crear" ,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ titulo:titulo, id_persona:idPersona,descripcion:descripcion })
+            })
+
+            dispatch({ type: INGRESAR_TAREA });
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+};
+

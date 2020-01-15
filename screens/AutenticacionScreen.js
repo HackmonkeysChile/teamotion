@@ -75,15 +75,21 @@ const AutenticacionScreen = props => {
         }
         if (auth) {
             if (personas.length > 0) {
-                traer = tareasAction.obtenerPorID(personas[0].id);
-                try {
-                    dispatch(traer);
-                } catch (err) {
-                }
+
                 if (personas[0].idRol === 1) {
+                    let traer =tareasAction.obtenerTareas();
+                    try {
+                        dispatch(traer);
+                    } catch (err) {
+                    }
                     props.navigation.navigate('MenuLider', { personaAuth: personas[0] });
                 } else if (personas[0].idRol === 2) {
                     props.navigation.navigate('Menu', { personaAuth: personas[0] });
+                    let traer = tareasAction.obtenerPorID(personas[0].id);
+                    try {
+                        dispatch(traer);
+                    } catch (err) {
+                    }
                 }
             }
         }
@@ -122,7 +128,7 @@ const AutenticacionScreen = props => {
 
     return (
         <View style={styles.screen}>
-             
+
             <View style={styles.card}>
                 <ScrollView>
                     <View style={styles.titleContainer}>
@@ -138,8 +144,8 @@ const AutenticacionScreen = props => {
                             autoCapitalize="none"
                             minLength={1}
                             placeholder={placeholderCorreo}
-                            placeholderTextColor="white" 
-                            onFocus={()=>{setPlaceholderCorreo('')}}
+                            placeholderTextColor="white"
+                            onFocus={() => { setPlaceholderCorreo('') }}
                             errorText="Ingrese un correo valido"
                             onInputChange={inputChangeHandler}
                             initialValue=""
@@ -152,8 +158,8 @@ const AutenticacionScreen = props => {
                             minLength={1}
                             autoCapitalize="none"
                             placeholder={placeholderClave}
-                            onFocus={()=>{setPlaceholderClave('')}}
-                            placeholderTextColor="white" 
+                            onFocus={() => { setPlaceholderClave('') }}
+                            placeholderTextColor="white"
                             errorText="Ingrese una clave valida"
                             onInputChange={inputChangeHandler}
                             initialValue=""
@@ -165,8 +171,8 @@ const AutenticacionScreen = props => {
 
                         ) : (
                                 <TouchableOpacity title="Login" onPress={logear} style={styles.buttonView}>
-                                    <Image style={styles.icono}  source={require('../assets/img/icono_check_login.png')} />
-                                   
+                                    <Image style={styles.icono} source={require('../assets/img/icono_check_login.png')} />
+
                                 </TouchableOpacity>
                             )
                         }
@@ -187,22 +193,8 @@ const AutenticacionScreen = props => {
                 closeOnHardwareBackPress={false}
                 showCancelButton={false}
                 showConfirmButton={true}
-                cancelText={
-                    <FontAwesome name='arrow-left'
-                        size={20}
-                        color={'white'}
-                        style={{
-                            alignContent: 'center'
-                        }} />
-                }
-                confirmText={
-                    <FontAwesome name='check'
-                        size={20}
-                        color={'white'}
-                        style={{
-                            alignContent: 'center'
-                        }} />
-                }
+                cancelText={'Cancelar'}
+                confirmText={'OK'}
                 confirmButtonColor="#DD6B55"
                 onCancelPressed={() => {
                     setShowAlert(false)
@@ -210,18 +202,27 @@ const AutenticacionScreen = props => {
                 onConfirmPressed={() => {
                     setShowAlert(false)
                 }}
-                
+
                 contentContainerStyle={{ backgroundColor: colores.primario, borderRadius: 20, width: '80%' }}
                 titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
                 messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
-                confirmButtonStyle={{ width: 45, height: 45, borderRadius: 30,justifyContent: 'center',
-                alignItems: 'center', backgroundColor:'#04D9D9', marginLeft:20,}}
-                
+                confirmButtonStyle={{
+                    width: 45, height: 45, borderRadius: 30, justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9', marginLeft: 20,
+                }}
+
             />
         </View>
     );
 };
-
+/*
+<FontAwesome name='check'
+                        size={20}
+                        color={'white'}
+                        style={{
+                            alignContent: 'center'
+                        }} />
+*/
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
@@ -288,7 +289,7 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
     },
-    icono:{
+    icono: {
         height: 55,
         width: 55,
     }

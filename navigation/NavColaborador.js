@@ -12,7 +12,7 @@ import AutenticacionScreen from '../screens/AutenticacionScreen';
 import HomePageLider from '../screens/lider/HomePage';
 import PerfilScreenLider from '../screens/lider/PerfilScreen';
 import TareasScreenLider from '../screens/lider/TareasScreen';
-import EquiposScreen from '../screens/lider/EquiposScreen';
+import CrearTarea from '../screens/lider/CrearTarea';
 
 import React from 'react';
 import { View, TouchableOpacity, Image } from "react-native";
@@ -65,9 +65,10 @@ const PerfilTopTabLider = createMaterialTopTabNavigator({
 
 const tabNavLider = createBottomTabNavigator({
     Home: HomeStackLider,
-    Equipos: {
-        screen: EquiposScreen,
+    NuevaTarea: {
+        screen: CrearTarea,
         navigationOptions: {
+            tabBarLabel: 'Nueva Tarea',
             tabBarVisible: false,
             tabBarIcon: 
             <TouchableOpacity

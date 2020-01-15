@@ -5,7 +5,6 @@ import colores from '../constants/colores';
 import textos from '../constants/textos';
 import TareasContainer from '../components/Tareas';
 import * as tareasAction from "../store/actions/tareas";
-import * as estadoTareasAction from "../store/actions/estadoTareas";
 import { useSelector, useDispatch } from "react-redux";
 import AwesomeAlert from 'react-native-awesome-alerts';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -14,9 +13,14 @@ const TareasScreen = props => {
     const [isLoading, setIsLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const tareas = useSelector(estado => estado.tareas.tareas);
+    const personaLog = useSelector(estado => estado.personas.personas);
     const [idTarea, setIdTarea] = useState('');
     const [error, setError] = useState(false);
     const [guardado, setGuardado] = useState(false);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(tareasAction.obtenerPorID(personaLog[0].id));
+    }, [dispatch]);
 
     const renderGrid = (itemData) => {
         return (
@@ -27,11 +31,11 @@ const TareasScreen = props => {
                     </View>
 
                     <View style={styles.containerButton}>
-                        <TouchableOpacity style={styles.button} onPress={() => 
-                            {
-                                setIdTarea(itemData.item.id);
-                                setShowAlert(true)}
-                            }>
+                        <TouchableOpacity style={styles.button} onPress={() => {
+                            setIdTarea(itemData.item.id);
+                            setShowAlert(true)
+                        }
+                        }>
                             <FontAwesome name="check"
                                 size={15}
                                 color={'white'}
@@ -50,13 +54,20 @@ const TareasScreen = props => {
         let accion;
         let idEstado = 2;
         let idTareaCambiar = parseInt(idTarea, 10);
-        accion = estadoTareasAction.actualizarEstado(idTarea, idEstado);
+        accion = tareasAction.actualizarEstado(idTarea, idEstado);
         setError(null);
         setShowAlert(false);
         setIsLoading(true);
         try {
             await dispatch(accion);
             setGuardado(true);
+            let traer = tareasAction.obtenerPorID(personaLog[0].id);
+            props.navigation.navigate('miPerfil');
+            try {
+                dispatch(traer);
+            } catch (err) {
+                
+            }
 
         } catch (err) {
             setError(true);
@@ -99,6 +110,35 @@ const TareasScreen = props => {
                 showCancelButton={true}
                 showConfirmButton={true}
                 cancelText={
+                    'Cancelar'
+                }
+                confirmText={
+                    'OK'
+                }
+                confirmButtonColor="#DD6B55"
+                onCancelPressed={() => {
+                    setShowAlert(false)
+                }}
+                onConfirmPressed={cambiarEstado}
+
+                contentContainerStyle={{ backgroundColor: colores.primario, borderRadius: 20, width: '80%' }}
+                titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
+                messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
+                confirmButtonStyle={{
+                    width: 45, height: 45, borderRadius: 30, justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9', marginLeft: 20
+                }}
+                cancelButtonStyle={{
+                    width: 45, height: 45, borderRadius: 30, justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9', marginRight: 20
+                }}
+            />
+        </View>
+    )
+};
+/*
+
+ cancelText={
                     <FontAwesome name='arrow-left'
                         size={20}
                         color={'white'}
@@ -114,24 +154,7 @@ const TareasScreen = props => {
                             alignContent: 'center'
                         }} />
                 }
-                confirmButtonColor="#DD6B55"
-                onCancelPressed={() => {
-                    setShowAlert(false)
-                }}
-                onConfirmPressed={cambiarEstado}
-                
-                contentContainerStyle={{ backgroundColor: colores.primario, borderRadius: 20, width: '80%' }}
-                titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
-                messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
-                confirmButtonStyle={{ width: 45, height: 45, borderRadius: 30,justifyContent: 'center',
-                alignItems: 'center', backgroundColor:'#04D9D9', marginLeft:20}}
-                cancelButtonStyle={{ width: 45, height: 45, borderRadius: 30,justifyContent: 'center',
-                alignItems: 'center', backgroundColor:'#04D9D9', marginRight:20}}
-            />
-        </View>
-    )
-};
-
+*/
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
