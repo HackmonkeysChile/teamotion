@@ -24,7 +24,7 @@ const inputReducer = (state, action) => {
   }
 };
 
-const Input = props => {
+const InputTarea = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ? props.initialValue : '',
     isValid: props.initiallyValid,
@@ -93,10 +93,10 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: 'open-sans-bold',
     color: colores.letras,
-    textAlign:'left',
-    marginTop:10
+    marginTop:8
   },
   errorContainer: {
+    marginTop: 5
   },
   errorText: {
     fontFamily: 'open-sans',
@@ -104,17 +104,20 @@ const styles = StyleSheet.create({
     fontSize: 13
   },
   input: {
+    textAlign:'center',
     width: '100%',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
+    paddingHorizontal: 19,
+    paddingVertical: 10,
     borderRadius: 25,
     backgroundColor: colores.primario,
     fontSize: textos.titulo,
     color: 'white',
-    textAlign: 'center',
-    fontFamily: 'open-sans-bold',
+    textAlign: 'left',
+    fontFamily: 'open-sans',
+    justifyContent:'center',
+    alignItems:'center'
   }
   
 });
 
-export default Input;
+export default InputTarea;

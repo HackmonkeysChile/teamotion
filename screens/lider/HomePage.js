@@ -17,9 +17,18 @@ const HomePage = props => {
                     <View style={styles.textContainer}>
                         <Text style={styles.text}>Publicación de hoy</Text>
                     </View>
-                    <View style={styles.imgContainer}>
-                        <Image style={styles.img} source={require('../../assets/img/hackmonkeys.jpg')} />
-                    </View>
+                    <View style={{alignItems: 'center',
+        justifyContent: 'center',}}>
+                       <ScrollView style={styles.imgContainer2}
+                            horizontal
+                            pagingEnabled
+                            showsHorizontalScrollIndicator={false}
+                        >
+                            <Image style={styles.img2} source={require('../../assets/img/hackmonkeys.jpg')} />
+                            <Image style={styles.img2} source={require('../../assets/img/hackmonkeys.jpg')} />
+
+                        </ScrollView>
+                       </View>
 
                 </View>
             </View>
@@ -63,10 +72,21 @@ const styles = StyleSheet.create({
         height: 345,
         borderRadius: 30,
     },
+    imgContainer2: {
+        marginTop: 12,
+        maxWidth:300,
+        width:'100%',
+        height:440
+    },
     imgContainer: {
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 12,
-    }
+    },
+    img2: {
+        width: 300,
+        height: 345,
+        borderRadius: 30,
+    },
 });
 export default HomePage;

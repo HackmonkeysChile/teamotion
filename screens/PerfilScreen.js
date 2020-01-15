@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -19,6 +19,9 @@ const PerfilScreen = props => {
 
         <View style={styles.screen}>
             <ImageBackground style={styles.head} source={require('../assets/img/curvas_colaborador.png')} >
+                <TouchableOpacity style={styles.cerrarSesion} onPress={() => props.navigation.navigate('Login')}>
+                    <Text style={styles.textBlanco}>CERRAR SESIÓN</Text>
+                </TouchableOpacity>
                 <Image style={styles.avatar} source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
             </ImageBackground>
             <ScrollView>
@@ -26,23 +29,48 @@ const PerfilScreen = props => {
                     <View style={styles.tituloContainer}>
                         <Text style={styles.titulo}>{personaLog[0].nombre} {personaLog[0].apellido}</Text>
                         <Text style={styles.rol}>Colaborador</Text>
+                        <Text style={styles.textoChico}>{personaLog[0].correo}</Text>
                     </View>
 
+                    <Text style={styles.textoChico}>¡Próximamente podras ingresar tus gustos personales!</Text>
                     <View style={styles.gustosContainer}>
+                        <Image source={require('../assets/img/icono_proyectos.png')} style={styles.img} />
                         <TouchableOpacity style={styles.infoContainer}>
-                            <Text style={styles.text}>{personaLog[0].correo}</Text>
+                            <Text style={styles.text}>Proyectos</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.gustosContainer}>
+                        <Image source={require('../assets/img/icono_peliculas.png')} style={styles.img} />
+                        <TouchableOpacity style={styles.infoContainer}>
+                            <Text style={styles.text}>Películas y series</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.gustosContainer}>
+                        <Image source={require('../assets/img/icono_deportes.png')} style={styles.img} />
+                        <TouchableOpacity style={styles.infoContainer}>
+                            <Text style={styles.text}>Deportes</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.gustosContainer}>
+                        <Image source={require('../assets/img/icono_musica.png')} style={styles.img} />
+                        <TouchableOpacity style={styles.infoContainer}>
+                            <Text style={styles.text}>Música</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.infoContainer} onPress={() => props.navigation.navigate('Login')}>
-                    <Text style={styles.text}>CERRAR</Text>
-                </TouchableOpacity>
+                
             </ScrollView>
 
         </View>
     )
 };
-
+/*
+<View style={styles.gustosContainer}>
+                    <TouchableOpacity style={styles.cerrarSesion} onPress={() => props.navigation.navigate('Login')}>
+                        <Text style={styles.textBlanco}>CERRAR SESIÓN</Text>
+                    </TouchableOpacity>
+                </View>
+*/
 const styles = StyleSheet.create({
     screen: {
         flex: 1
@@ -51,7 +79,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         height: 120,
-        marginBottom: 35
+        marginBottom: 50
     },
     avatar: {
         width: 100,
@@ -66,7 +94,7 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        padding: 30,
+        paddingHorizontal: 35,
         width: '100%'
     },
     name: {
@@ -93,14 +121,33 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 5,
-        width: '100%',
+        width: '90%',
         borderRadius: 30,
         backgroundColor: colores.secundario,
+    },
+    cerrarSesion: {
+        height: 'auto',
+        padding: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+        marginLeft:20,
+        width: 100,
+        borderRadius: 30,
+        backgroundColor: colores.primario,
+        marginTop:-17
     },
     text: {
         color: colores.letras,
         textAlign: 'center',
         fontSize: textos.texto
+    },
+    textBlanco: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: textos.texto,
+        textTransform: 'uppercase',
+        fontFamily: 'open-sans-bold',
     },
     titulo: {
         fontFamily: 'open-sans-bold',
@@ -114,12 +161,28 @@ const styles = StyleSheet.create({
         color: colores.letras,
         textTransform: 'uppercase'
     },
+    textoChico: {
+        fontFamily: 'open-sans',
+        fontSize: textos.texto,
+        color: colores.letras,
+        textAlign: 'center'
+    },
     tituloContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 15
+    },
+    gustosContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        marginBottom: 5,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    gustosContainer: {
-        marginTop: 20
+    img: {
+        width: 20,
+        height: 20,
+        marginRight: 15
     }
 });
 

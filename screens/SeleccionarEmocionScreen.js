@@ -18,7 +18,7 @@ import * as emocionesAction from "../store/actions/emociones";
 import * as personasAction from "../store/actions/personas";
 import * as dailyAction from "../store/actions/daily";
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const SeleccionarEmocionScreen = props => {
     const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +29,8 @@ const SeleccionarEmocionScreen = props => {
     const [imagen2, setImagen2] = useState(false);
     const [imagen3, setImagen3] = useState(false);
     const [imagen4, setImagen4] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [showAlertNo, setShowAlertNo] = useState(false);
     const personaLog = useSelector(estado => estado.personas.personas);
     const emociones = useSelector(estado => estado.emociones.emociones);
     const dispatch = useDispatch();
@@ -37,52 +39,54 @@ const SeleccionarEmocionScreen = props => {
         if (itemData.item.id === 1) {
             return (
                 <View style={styles.gridData}>
-                    <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(true); setImagen2(false); setImagen3(false); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(true); setImagen2(false); setImagen3(false); setImagen4(false); }} style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Image
                             source={require('../assets/img/excelente.png')}
-                            style={imagen1?  styles.imgGrande :styles.img}
+                            style={imagen1 ? styles.imgGrande : styles.img}
                         />
                     </TouchableOpacity>
-                    <Text 
-                    style={imagen1?  styles.nombreEmocionGrande :styles.nombreEmocion}
+                    <Text
+                        style={imagen1 ? styles.nombreEmocionGrande : styles.nombreEmocion}
                     >{itemData.item.nombre}</Text>
                 </View>
             );
+
         } else if (itemData.item.id === 2) {
             return (
                 <View style={styles.gridData}>
-                    <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(false); setImagen2(true);  setImagen3(false); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(false); setImagen2(true); setImagen3(false); setImagen4(false); }} style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Image
                             source={require('../assets/img/bien.png')}
-                            style={imagen2?  styles.imgGrande :styles.img}
-                          />
+                            style={imagen2 ? styles.imgGrande : styles.img}
+                        />
                     </TouchableOpacity>
-                    <Text  style={imagen2?  styles.nombreEmocionGrande :styles.nombreEmocion}>{itemData.item.nombre}</Text>
+                    <Text style={imagen2 ? styles.nombreEmocionGrande : styles.nombreEmocion}>{itemData.item.nombre}</Text>
                 </View>
             );
 
         } else if (itemData.item.id === 3) {
             return (
                 <View style={styles.gridData}>
-                    <TouchableOpacity onPress={() => {setEmocion(itemData.item.id); setImagen1(false); setImagen2(false);  setImagen3(true); setImagen4(false);}} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => { setEmocion(itemData.item.id); setImagen1(false); setImagen2(false); setImagen3(true); setImagen4(false); }} style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <Image
                             source={require('../assets/img/no_muy_bien.png')}
-                            style={imagen3?  styles.imgGrande :styles.img} />
+                            style={imagen3 ? styles.imgGrande : styles.img} />
                     </TouchableOpacity>
-                    <Text  style={imagen3?  styles.nombreEmocionGrande :styles.nombreEmocion}>{itemData.item.nombre}</Text>
+                    <Text style={imagen3 ? styles.nombreEmocionGrande : styles.nombreEmocion}>{itemData.item.nombre}</Text>
                 </View>
             );
+
         } else if (itemData.item.id === 4) {
             return (
                 <View style={styles.gridData}>
-                    <TouchableOpacity 
-                    onPress={() => {setEmocion(itemData.item.id); setImagen1(false); setImagen2(false);  setImagen3(false); setImagen4(true);}}
+                    <TouchableOpacity
+                        onPress={() => { setEmocion(itemData.item.id); setImagen1(false); setImagen2(false); setImagen3(false); setImagen4(true); }}
                     >
                         <Image
                             source={require('../assets/img/terrible.png')}
-                            style={imagen4?  styles.imgGrande :styles.img} />
+                            style={imagen4 ? styles.imgGrande : styles.img} />
                     </TouchableOpacity>
-                    <Text  style={imagen4?  styles.nombreEmocionGrande :styles.nombreEmocion}>{itemData.item.nombre}</Text>
+                    <Text style={imagen4 ? styles.nombreEmocionGrande : styles.nombreEmocion}>{itemData.item.nombre}</Text>
                 </View>
             );
         }
@@ -112,18 +116,23 @@ const SeleccionarEmocionScreen = props => {
         let accion;
         let idPersona = personaLog[0].id;
         let idEmocion = parseInt(emocion, 10);
-
+        setEmocion('');
         accion = dailyAction.ingresarDaily(idPersona, idEmocion);
         setError(null);
         setIsLoading(true);
+        setShowAlert(false);
         try {
             await dispatch(accion);
             setGuardado(true);
+            setEmocion('');
+            setShowAlert(false);
 
         } catch (err) {
             setError(true);
         }
+        setShowAlert(false);
         setIsLoading(false);
+        setEmocion('');
 
     };
 
@@ -143,38 +152,39 @@ const SeleccionarEmocionScreen = props => {
                     <View style={styles.textContainer}>
                         <Text style={styles.text}>Selecciona una emoción:</Text>
                     </View>
-                   
+
                 </View>
-                <View style={{ width: '100%', flexDirection: 'row',}}>
-                       <View style={{ width: '20%', height:550, marginTop:20}}>
-                       <Image source={require('../assets/img/curvas_4_izq.png')} style={{width:'100%', height:430}}/>
-                       </View>
-                       <FlatList
+                <View style={{ width: '100%', flexDirection: 'row', }}>
+                    <View style={{ width: '28%',maxWidth:85, height: 550, marginTop: 20 }}>
+                        <Image source={require('../assets/img/curvas_4_izq.png')} style={{ width: '100%', height: 440 }} />
+                    </View>
+                    <FlatList
                         data={emociones}
                         horizontal={false}
                         renderItem={renderGrid}
-                        style={{ width: '60%', height:550}}
+                        style={{ width: '40%', height: 550 }}
                         contentContainerStyle={{
                             justifyContent: 'center',
                             alignItems: 'center'
                         }}
                         keyExtractor={(renderGrid, index) => index.toString()}
                     />
-                      <View style={{ width: '20%', height:550, marginTop:20}}>
-                          <Image source={require('../assets/img/curvas_4_der.png')} style={{width:'100%', height:430}}/>
-                      </View>
-                   </View>
+                    <View style={{ width: '28%',maxWidth:85, height: 550, marginTop: 20 }}>
+                        <Image source={require('../assets/img/curvas_4_der.png')} style={{ width: '100%', height: 440 }} />
+                    </View>
+                </View>
             </ScrollView>
 
             <View style={styles.foot}>
                 <View style={styles.contentBoton} >
                     <TouchableOpacity
-                        onPress={() => { 
-                            props.navigation.navigate('HomePage') 
+                        onPress={() => {
+                            props.navigation.navigate('HomePage')
                             setImagen1(false);
                             setImagen2(false);
                             setImagen3(false);
                             setImagen4(false);
+                            setEmocion('');
                         }}
                         style={styles.buttonView}
                         activeOpacity={.5}
@@ -188,10 +198,19 @@ const SeleccionarEmocionScreen = props => {
                     </TouchableOpacity>
                     <Text style={styles.textoButton}>Volver</Text>
                 </View>
+
                 <View style={{ width: '34%' }} />
+
                 <View style={styles.contentBoton}  >
                     <TouchableOpacity
-                        onPress={guardar}
+                        onPress={() => {
+                            console.log(emocion);
+                            if (emocion === '' || emocion=== 0) {
+                                setShowAlertNo(true)
+                            } else {
+                                setShowAlert(true)
+                            }
+                        }}
                         style={styles.buttonView}
                         activeOpacity={.5} >
                         <FontAwesome name="check"
@@ -204,6 +223,64 @@ const SeleccionarEmocionScreen = props => {
                     <Text style={styles.textoButton}>Listo</Text>
                 </View>
             </View>
+
+
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                title="Registrar emoción"
+                message="¿Seguro de registrar emoción?"
+                closeOnTouchOutside={false}
+                closeOnHardwareBackPress={false}
+                showCancelButton={true}
+                showConfirmButton={true}
+                cancelText={
+                    'Cancelar'
+                }
+                confirmText={
+                    'Sí'
+                }
+                confirmButtonColor="#DD6B55"
+                onCancelPressed={() => {
+                    setShowAlert(false)
+                }}
+                onConfirmPressed={guardar}
+
+                contentContainerStyle={{ backgroundColor: colores.primario, borderRadius: 20, width: '80%' }}
+                titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
+                messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
+                confirmButtonStyle={{
+                    justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9',
+                }}
+                cancelButtonStyle={{
+                    justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9',
+                }}
+            />
+
+            <AwesomeAlert
+                show={showAlertNo}
+                showProgress={false}
+                title="Ingrese emoción"
+                message="Por favor ingrese una emoción para continuar"
+                closeOnTouchOutside={false}
+                closeOnHardwareBackPress={false}
+                showCancelButton={false}
+                showConfirmButton={true}
+                confirmText={
+                    'Entendido'
+                }
+                confirmButtonColor="#DD6B55"
+                onConfirmPressed={() => setShowAlertNo(false)}
+                contentContainerStyle={{ backgroundColor: colores.primario, borderRadius: 20, width: '80%' }}
+                titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
+                messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
+                confirmButtonStyle={{
+                    justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9',
+                }}
+            />
         </View>
 
     )
@@ -224,7 +301,7 @@ const styles = StyleSheet.create({
     publicaciones: {
         flex: 1,
         paddingHorizontal: '8%',
-        paddingVertical:25
+        paddingVertical: 25
     },
     emocionesContainer: {
         flex: 1,
@@ -244,17 +321,17 @@ const styles = StyleSheet.create({
     },
     nombreEmocion: {
         fontSize: textos.texto,
-        color:colores.letras,
+        color: colores.letras,
         textAlign: textos.alignTexto,
         fontFamily: 'open-sans',
-        marginTop:2,
+        marginTop: 2,
     },
     nombreEmocionGrande: {
         fontSize: textos.subtitulo,
-        color:colores.letras,
+        color: colores.letras,
         textAlign: textos.alignTexto,
         fontFamily: 'open-sans-bold',
-        marginTop:2,
+        marginTop: 2,
     },
     textContainer: {
         justifyContent: 'flex-start',
@@ -278,7 +355,7 @@ const styles = StyleSheet.create({
     },
     gridData: {
         marginTop: 0,
-        marginBottom:0,
+        marginBottom: 0,
         height: 120,
         justifyContent: 'center',
         alignItems: 'center',

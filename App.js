@@ -10,11 +10,15 @@ import emocionesReducer from "./store/reducers/emociones";
 import personaReducer from "./store/reducers/personas";
 import dailyReducer from "./store/reducers/daily";
 import tareasReducer from "./store/reducers/tareas";
+import equiposReducer from "./store/reducers/equipos";
+import personasEquiposReducer from "./store/reducers/personasEquipos";
 
 const rootReducer = combineReducers({
   emociones: emocionesReducer,
   personas: personaReducer,
-  tareas: tareasReducer
+  tareas: tareasReducer,
+  equipos: equiposReducer,
+  personasEquipos: personasEquiposReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

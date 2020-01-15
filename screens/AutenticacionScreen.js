@@ -81,14 +81,16 @@ const AutenticacionScreen = props => {
                     try {
                         dispatch(traer);
                     } catch (err) {
+
                     }
-                    props.navigation.navigate('MenuLider', { personaAuth: personas[0] });
+                    props.navigation.navigate('MenuLider');
                 } else if (personas[0].idRol === 2) {
-                    props.navigation.navigate('Menu', { personaAuth: personas[0] });
+                    props.navigation.navigate('Menu');
                     let traer = tareasAction.obtenerPorID(personas[0].id);
                     try {
                         dispatch(traer);
                     } catch (err) {
+                        
                     }
                 }
             }
@@ -140,25 +142,24 @@ const AutenticacionScreen = props => {
                             id="correo"
                             keyboardType="email-address"
                             required
+                            label="Correo"
                             email
                             autoCapitalize="none"
                             minLength={1}
-                            placeholder={placeholderCorreo}
                             placeholderTextColor="white"
-                            onFocus={() => { setPlaceholderCorreo('') }}
                             errorText="Ingrese un correo valido"
                             onInputChange={inputChangeHandler}
                             initialValue=""
+                            style={styles.input}
                         />
                         <Input
                             id="clave"
                             keyboardType="default"
                             secureTextEntry
+                            label="Clave"
                             required
                             minLength={1}
                             autoCapitalize="none"
-                            placeholder={placeholderClave}
-                            onFocus={() => { setPlaceholderClave('') }}
                             placeholderTextColor="white"
                             errorText="Ingrese una clave valida"
                             onInputChange={inputChangeHandler}
@@ -171,7 +172,7 @@ const AutenticacionScreen = props => {
 
                         ) : (
                                 <TouchableOpacity title="Login" onPress={logear} style={styles.buttonView}>
-                                    <Image style={styles.icono} source={require('../assets/img/icono_check_login.png')} />
+                                    <Image  style={styles.icono} source={require('../assets/img/icono_check_login.png')} />
 
                                 </TouchableOpacity>
                             )
@@ -206,9 +207,8 @@ const AutenticacionScreen = props => {
                 contentContainerStyle={{ backgroundColor: colores.primario, borderRadius: 20, width: '80%' }}
                 titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
                 messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
-                confirmButtonStyle={{
-                    width: 45, height: 45, borderRadius: 30, justifyContent: 'center',
-                    alignItems: 'center', backgroundColor: '#04D9D9', marginLeft: 20,
+                confirmButtonStyle={{justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9',
                 }}
 
             />
@@ -231,9 +231,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     card: {
-        minWidth: 300,
-        maxWidth: 800,
-        maxHeight: 400,
+        width:'80%'
     },
     formControl: {
         flex: 1,
@@ -259,16 +257,16 @@ const styles = StyleSheet.create({
     buttonView: {
         height: 55,
         width: 55,
-        marginTop: 80,
-        borderRadius: 58,
+        marginTop: 60,
+        borderRadius: 50,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     buttonViewLoading: {
         height: 55,
         width: 55,
-        marginTop: 80,
-        borderRadius: 58,
+        marginTop: 60,
+        borderRadius: 50,
         backgroundColor: colores.secundario,
         justifyContent: 'center',
         alignItems: 'center',
@@ -292,7 +290,18 @@ const styles = StyleSheet.create({
     icono: {
         height: 55,
         width: 55,
-    }
+    },
+    input: {
+        width: '100%',
+        paddingHorizontal: 15,
+        paddingVertical: 15,
+        borderRadius: 25,
+        backgroundColor: colores.primario,
+        fontSize: textos.titulo,
+        color: 'white',
+        textAlign: 'center',
+        fontFamily: 'open-sans-bold',
+      }
 });
 
 export default AutenticacionScreen;

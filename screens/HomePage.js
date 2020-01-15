@@ -18,7 +18,9 @@ const HomePage = props => {
                             <Text style={styles.text}>Publicación de hoy</Text>
                         </View>
 
-                        <ScrollView style={styles.imgContainer2}
+                       <View style={{alignItems: 'center',
+        justifyContent: 'center',}}>
+                       <ScrollView style={styles.imgContainer2}
                             horizontal
                             pagingEnabled
                             showsHorizontalScrollIndicator={false}
@@ -27,6 +29,7 @@ const HomePage = props => {
                             <Image style={styles.img2} source={require('../assets/img/hackmonkeys.jpg')} />
 
                         </ScrollView>
+                       </View>
 
                     </View>
                 </View>
@@ -35,21 +38,7 @@ const HomePage = props => {
         </View>
     )
 };
-/*
 
-                        <View style={styles.imgContainer}>
-                            <Image style={styles.img} source={require('../assets/img/hackmonkeys.jpg')} />
-                        </View>
- <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => {props.navigation.navigate('Daily')}}
-            style={styles.TouchableOpacityStyle}>
-            <Image
-                source={require('../assets/img/icono_daily.png')}
-                style={styles.FloatingButtonStyle}
-            />
-        </TouchableOpacity>
-*/
 const styles = StyleSheet.create({
     title: {
         color: colores.letras,
@@ -88,7 +77,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
     },
     img2: {
-        width: 345,
+        width: 300,
         height: 345,
         borderRadius: 30,
     },
@@ -99,7 +88,8 @@ const styles = StyleSheet.create({
     },
     imgContainer2: {
         marginTop: 12,
-        width:345,
+        maxWidth:300,
+        width:'100%',
         height:440
     },
     TouchableOpacityStyle: {
@@ -112,7 +102,6 @@ const styles = StyleSheet.create({
         bottom: -10,
 
     },
-
     FloatingButtonStyle: {
         resizeMode: 'contain',
         width: 80,

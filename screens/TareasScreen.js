@@ -87,7 +87,6 @@ const TareasScreen = props => {
                 <View style={styles.screen}>
                     <View style={styles.titleContainer}>
                         <Text style={styles.superTitle}>MIS METAS</Text>
-                        <Text style={styles.text}>Screen Metas</Text>
                     </View>
 
                     <FlatList
@@ -125,12 +124,12 @@ const TareasScreen = props => {
                 titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
                 messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
                 confirmButtonStyle={{
-                    width: 45, height: 45, borderRadius: 30, justifyContent: 'center',
-                    alignItems: 'center', backgroundColor: '#04D9D9', marginLeft: 20
+                     justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9',
                 }}
                 cancelButtonStyle={{
-                    width: 45, height: 45, borderRadius: 30, justifyContent: 'center',
-                    alignItems: 'center', backgroundColor: '#04D9D9', marginRight: 20
+                     justifyContent: 'center',
+                    alignItems: 'center', backgroundColor: '#04D9D9',
                 }}
             />
         </View>

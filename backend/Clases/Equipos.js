@@ -9,6 +9,22 @@ class Equipos {
         this.ID_ESTADO = ID_ESTADO;
     }
 
+    Consultar_Todos(){
+        const conexion = new sql.ConnectionPool(dbconfig);
+        const Parametros = new sql.Request(conexion);
+
+        const Prodecimiento = 'CONSULTAR_EQUIPOS';
+
+        return new Promise((resolve, reject) => {
+            Conexion.ConsultaQuery(Prodecimiento, Parametros, conexion, (err, equipoDB) => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(equipoDB);
+                }
+            });
+        });
+    }
     
 }
 

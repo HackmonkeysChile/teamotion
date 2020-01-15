@@ -1,4 +1,4 @@
-import { createAppContainer, createSwitchNavigator, NavigationRoute  } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, NavigationRoute } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { FontAwesome } from '@expo/vector-icons';
@@ -18,10 +18,11 @@ import React from 'react';
 import { View, TouchableOpacity, Image } from "react-native";
 
 import colores from '../constants/colores';
+import textos from '../constants/textos';
 import Daily from '../models/Daily';
 
 const AutenticarStack = createStackNavigator({
-    Autenticar:{
+    Autenticar: {
         screen: AutenticacionScreen,
         navigationOptions: {
             header: null
@@ -40,13 +41,20 @@ const HomeStackLider = createStackNavigator({
 });
 
 const PerfilTopTabLider = createMaterialTopTabNavigator({
-    PerfilScreenLider: PerfilScreenLider,
     Team: {
         screen: TareasScreenLider,
         navigationOptions: {
             tabBarLabel: 'Metas'
         }
-    }
+    },
+    PerfilScreenLider: {
+        screen: PerfilScreenLider,
+        navigationOptions: {
+            tabBarLabel: 'Perfil'
+        }
+    },
+
+
 }, {
     tabBarOptions: {
         style: {
@@ -70,27 +78,19 @@ const tabNavLider = createBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: 'Nueva Tarea',
             tabBarVisible: false,
-            tabBarIcon: 
-            <TouchableOpacity
-            onPress={()=> {}}
-            style={{
-                position: 'absolute',
-                bottom: -8,
-                height:80,
-                width: 80,
-                borderRadius: 58,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-            <Image style={{height:80,
-                width: 80,}}  source={require('../assets/img/icono_team.png')} />
-        </TouchableOpacity>
+            tabBarIcon:
+                <Image style={{
+                    height: 50,
+                    width: 50,
+                    bottom: 10
+                }} source={require('../assets/img/icono_team.png')} />
+                
         },
     },
     miPerfil: {
         screen: PerfilTopTabLider,
         navigationOptions: {
-            tabBarLabel: 'Mi Perfil'
+            tabBarLabel: 'Team'
         }
     },
 
@@ -98,18 +98,19 @@ const tabNavLider = createBottomTabNavigator({
     tabBarOptions: {
         activeTintColor: 'white',
         inactiveTintColor: 'rgba(255,255,255,0.7)',
-        activeBackgroundColor: colores.primario,
-        inactiveBackgroundColor: colores.primario,
+        activeBackgroundColor: colores.botones,
+        inactiveBackgroundColor: colores.botones,
         style: {
             borderTopColor: colores.secundario,
-            height: 65,
-            borderTopWidth: 15,
-            borderBottomColor: colores.primario,
+            height: 70,
+            borderTopWidth: 10,
+            borderBottomColor: colores.botones,
             borderBottomWidth: 0
         },
         labelStyle: {
             fontSize: 12,
-            marginBottom: 6
+            marginBottom: 10,
+            fontFamily: 'open-sans-bold'
         }
     }
 });
@@ -139,13 +140,15 @@ const EmocionSelect = createStackNavigator({
 });
 
 const MiPerfil = createMaterialTopTabNavigator({
-    Perfil: PerfilScreen,
     Metas: {
         screen: TareasScreen,
         navigationOptions: {
             tabBarLabel: 'Mis Metas'
         }
-    }
+    },
+    Perfil: PerfilScreen,
+
+    
 }, {
     tabBarOptions: {
         style: {
@@ -168,30 +171,19 @@ const tabNav = createBottomTabNavigator({
         screen: EmocionSelect,
         navigationOptions: {
             tabBarVisible: false,
-            tabBarIcon: 
-            <TouchableOpacity
-            
-            onPress={Daily}
-            style={{
-                position: 'absolute',
-                bottom: 2,
-                marginLeft:6,
-                height:80,
-                width: 80,
-                borderRadius: 58,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-            <Image style={{height:80,
-                width: 80,}}  source={require('../assets/img/icono_daily.png')} />
-        </TouchableOpacity>
+            tabBarIcon:
+                <Image style={{
+                    height: 50,
+                    width: 50,
+                    bottom: 10
+                }} source={require('../assets/img/icono_daily.png')} />
         },
-        
+
     },
     miPerfil: {
         screen: MiPerfil,
         navigationOptions: {
-            tabBarLabel: 'Mi Perfil'
+            tabBarLabel: 'Team'
         }
     },
 
@@ -203,14 +195,15 @@ const tabNav = createBottomTabNavigator({
         inactiveBackgroundColor: colores.primario,
         style: {
             borderTopColor: colores.secundario,
-            height: 65,
-            borderTopWidth: 15,
+            height: 70,
+            borderTopWidth: 10,
             borderBottomColor: colores.primario,
-            borderBottomWidth: 0,
+            borderBottomWidth: 0
         },
         labelStyle: {
             fontSize: 12,
-            marginBottom: 6
+            marginBottom: 10,
+            fontFamily: 'open-sans-bold'
         }
     }
 });
@@ -218,7 +211,7 @@ const tabNav = createBottomTabNavigator({
 
 const mainNav = createSwitchNavigator({
     Login: AutenticarStack,
-    Menu:tabNav,
+    Menu: tabNav,
     MenuLider: tabNavLider
 });
 

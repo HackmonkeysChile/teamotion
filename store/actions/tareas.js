@@ -4,21 +4,17 @@ export const OBTENER_TAREAS_PERSONA = 'OBTENER_TAREAS_PERSONA';
 export const obtenerPorID = (idPersona) => {
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.21:3000/Tareas/TareasPersona/" + idPersona, {
+            const respuesta = await fetch("http://192.168.0.12:3000/Tareas/TareasPersona/" + idPersona, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-
             if (!respuesta.ok) {
                 throw new Error('Vuelva a ingresar sus datos');
             }
             const respuestaJson = await respuesta.json();
-            console.log(respuestaJson);
-        
             let tareas = [];
-
             respuestaJson.Descripcion.forEach(tarea => {
                 tareas.push(new Tareas(
                     tarea.ID_TAREA,
@@ -28,7 +24,6 @@ export const obtenerPorID = (idPersona) => {
                     tarea.ID_PERSONA,
                     tarea.DESCRIPCION));
             });
-
             dispatch({ type: OBTENER_TAREAS_PERSONA, tareas: tareas });
         } catch (e) {
             throw new Error(e);
@@ -42,7 +37,7 @@ export const actualizarEstado = (idTarea,idEstado) => {
     
     return async dispatch => {
         try {
-            await fetch("http://192.168.0.21:3000/Tareas/ActualizarEstado/" + idTarea, {
+            await fetch("http://192.168.0.12:3000/Tareas/ActualizarEstado/" + idTarea, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -63,7 +58,7 @@ export const obtenerTareas = () => {
     
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.21:3000/Tareas/Obtener", {
+            const respuesta = await fetch("http://192.168.0.12:3000/Tareas/Obtener", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -75,7 +70,6 @@ export const obtenerTareas = () => {
             }
             const respuestaJson = await respuesta.json();
             let tareas = [];
-            console.log(respuestaJson);
             respuestaJson.Descripcion.forEach(tarea => {
                 tareas.push(new Tareas(
                     tarea.ID_TAREA,

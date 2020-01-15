@@ -7,7 +7,7 @@ import {
     Button,
     FlatList,
     Image,
-    TouchableOpacity
+    TouchableOpacity, Modal, Alert
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
@@ -16,53 +16,50 @@ import textos from '../../constants/textos';
 import TareasContainer from '../../components/Tareas';
 import { useSelector, useDispatch } from 'react-redux';
 import * as tareasAction from "../../store/actions/tareas";
+import * as equiposAction from "../../store/actions/equipos";
+import * as personasEquiposAction from "../../store/actions/personasEquipos";
+
 const TareasScreen = props => {
+    const [modal, setModal] = useState(false);
+    const [idEquipo, setIdEquipo] = useState('');
     const tareas = useSelector(estado => estado.tareas.tareas);
+    const equipos = useSelector(estado => estado.equipos.equipos);
     const dispatch = useDispatch();
+    const personasEquipos = useSelector(estado => estado.personasEquipos.personasEquipos);
+    const dispatchTareas = useDispatch();
+
     useEffect(() => {
-        dispatch(tareasAction.obtenerTareas());
-    }, [dispatch]);
+        dispatchTareas(tareasAction.obtenerTareas());
+    }, [dispatchTareas]);
 
     const renderGrid = (itemData) => {
         return (
             <View style={styles.gridData}>
                 <View style={styles.container}>
-                    <Text style={styles.tituloEquipo}>Hola</Text>
+                    <Text style={styles.tituloEquipo}> {itemData.item.titulo}</Text>
                     <View style={styles.containerTarea}>
-                        <Text style={styles.texto}><Text style={styles.titulo}>{itemData.item.titulo}: </Text>{itemData.item.descripcion}</Text>
+                        <Text style={styles.texto}>{itemData.item.descripcion}</Text>
                     </View>
+                    <Text style={styles.textoDer}> {itemData.item.idPersona}</Text>
                 </View>
-                <View style={styles.containerButton}>
-                    <TouchableOpacity style={styles.button} onPress={() => {
-                        setIdTarea(itemData.item.id);
-                        setShowAlert(true)
-                    }
-                    }>
-                        <Octicons name="tasklist"
-                            size={20}
-                            color={colores.letras}
-                            style={{
-                                alignContent: 'center'
-                            }} />
-                    </TouchableOpacity >
-                    <Text style={styles.textoPequeño}>Tareas</Text>
-                </View>
+                
             </View>
         );
     };
+
 
     return (
         <View style={styles.screen}>
             <ScrollView>
                 <View style={{ width: '100%', alignContent: 'center', justifyContent: 'center' }}>
                     <View style={styles.titleContainer}>
-                        <Text style={styles.superTitle}>TEAMS</Text>
+                        <Text style={styles.superTitle}>TAREAS</Text>
                     </View>
                     <Image source={require('../../assets/img/imagen_teams.png')} style={{ width: '100%', height: 200 }} />
                 </View>
                 <View style={styles.tareaCont}>
                     <View style={styles.subtitleContainer}>
-                        <Text style={styles.text}>Administra los teams y tareas</Text>
+                        <Text style={styles.text}>Aquí podrás visualizar las tareas en estado "en proceso"</Text>
                     </View>
                     <FlatList
                         data={tareas}
@@ -70,6 +67,7 @@ const TareasScreen = props => {
                         style={styles.flat}
                         keyExtractor={(renderGrid, index) => index.toString()}
                     />
+
                 </View>
             </ScrollView>
         </View>
@@ -94,7 +92,7 @@ const styles = StyleSheet.create({
     text: {
         color: colores.letras,
         fontSize: textos.subtitulo,
-        textAlign: textos.alignTexto,
+        textAlign: 'center',
         fontFamily: 'open-sans'
     },
     titleContainer: {
@@ -110,7 +108,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     container: {
-        width: '83%',
+        width: '100%',
         flexDirection: 'column',
     },
     containerTarea: {
@@ -125,12 +123,12 @@ const styles = StyleSheet.create({
         backgroundColor: colores.secundario,
 
     },
-    tituloEquipo:{
+    tituloEquipo: {
         fontSize: textos.subtitulo,
         fontFamily: 'open-sans-bold',
         color: colores.letras,
-        textTransform:'uppercase',
-        marginBottom:3
+        textTransform: 'uppercase',
+        marginBottom: 3
     },
     textoPequeño: {
         fontSize: textos.miniTexto,
@@ -153,12 +151,24 @@ const styles = StyleSheet.create({
     },
     flat: {
         width: '100%',
-        marginBottom:20
+        marginBottom: 20
     },
-    gridData:{
+    gridData: {
         flexDirection: 'row',
-        marginBottom:20
-    }
+        marginBottom: 10
+    },
+    texto: {
+        fontSize: textos.texto,
+        fontFamily: 'open-sans',
+        color: colores.letras,
+        textAlign: 'left'
+    },
+    textoDer: {
+        fontSize: textos.texto,
+        fontFamily: 'open-sans',
+        color: colores.letras,
+        textAlign: 'right'
+    },
 });
 
 export default TareasScreen;

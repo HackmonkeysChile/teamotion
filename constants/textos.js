@@ -3,5 +3,5 @@ export default {
     titulo: 17,
     texto: 13,
     subtitulo:14,
-    miniTexto:9
+    miniTexto:7
 };

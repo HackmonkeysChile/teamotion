@@ -1,8 +1,9 @@
 import {AUTENTICAR_PERSONAS} from '../actions/personas';
 import Personas from "../../models/Personas";
-
+import {OBTENER_PERSONAS} from '../actions/personas';
 const estadoInicial ={
-    personas:[]
+    personas:[],
+    todaspersonas:[]
 }
 
 const personasReducer=(estado=estadoInicial, accion)=>{
@@ -11,6 +12,10 @@ const personasReducer=(estado=estadoInicial, accion)=>{
             return{
                 personas:accion.personas
             }; 
+            case OBTENER_PERSONAS:
+                return{
+                    todaspersonas:accion.todaspersonas
+                }; 
     }
     return estado;
 }
