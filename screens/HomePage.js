@@ -6,6 +6,7 @@ import textos from '../constants/textos';
 
 
 const HomePage = props => {
+    console.disableYellowBox = true;
     return (
         <View style={styles.screen}>
             <ScrollView>

@@ -4,7 +4,7 @@ export const OBTENER_TAREAS_PERSONA = 'OBTENER_TAREAS_PERSONA';
 export const obtenerPorID = (idPersona) => {
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.12:3000/Tareas/TareasPersona/" + idPersona, {
+            const respuesta = await fetch("http://192.168.0.25:3000/Tareas/TareasPersona/" + idPersona, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export const actualizarEstado = (idTarea,idEstado) => {
     
     return async dispatch => {
         try {
-            await fetch("http://192.168.0.12:3000/Tareas/ActualizarEstado/" + idTarea, {
+            await fetch("http://192.168.0.25:3000/Tareas/ActualizarEstado/" + idTarea, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ export const obtenerTareas = () => {
     
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.12:3000/Tareas/Obtener", {
+            const respuesta = await fetch("http://192.168.0.25:3000/Tareas/Obtener", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ export const INGRESAR_TAREA = 'INGRESAR_TAREA';
 export const ingresarTarea = (titulo, idPersona,descripcion) => {
     return async dispatch => {
         try {
-            await fetch("http://192.168.0.21:3000/Tareas/Crear" ,{
+            await fetch("http://192.168.0.25:3000/Tareas/Crear" ,{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

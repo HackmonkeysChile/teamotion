@@ -10,6 +10,7 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const TareasScreen = props => {
+    console.disableYellowBox = true;
     const [isLoading, setIsLoading] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const tareas = useSelector(estado => estado.tareas.tareas);
@@ -23,6 +24,8 @@ const TareasScreen = props => {
     }, [dispatch]);
 
     const renderGrid = (itemData) => {
+        console.log(itemData);
+
         return (
             <View style={styles.gridData}>
                 <View style={styles.container}>
@@ -48,6 +51,7 @@ const TareasScreen = props => {
                 </View>
             </View>
         );
+
     };
 
     const cambiarEstado = async () => {
@@ -66,7 +70,7 @@ const TareasScreen = props => {
             try {
                 dispatch(traer);
             } catch (err) {
-                
+
             }
 
         } catch (err) {
@@ -124,11 +128,11 @@ const TareasScreen = props => {
                 titleStyle={{ color: 'white', textTransform: 'uppercase', fontFamily: 'open-sans-bold' }}
                 messageStyle={{ color: 'white', fontFamily: 'open-sans' }}
                 confirmButtonStyle={{
-                     justifyContent: 'center',
+                    justifyContent: 'center',
                     alignItems: 'center', backgroundColor: '#04D9D9',
                 }}
                 cancelButtonStyle={{
-                     justifyContent: 'center',
+                    justifyContent: 'center',
                     alignItems: 'center', backgroundColor: '#04D9D9',
                 }}
             />

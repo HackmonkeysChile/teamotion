@@ -48,6 +48,7 @@ const formReducer = (state, action) => {
 };
 
 const AutenticacionScreen = props => {
+    console.disableYellowBox = true;
     const [showAlert, setShowAlert] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -255,17 +256,17 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     buttonView: {
-        height: 55,
-        width: 55,
-        marginTop: 60,
+        height: 60,
+        width: 60,
+        marginTop: 50,
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center'
     },
     buttonViewLoading: {
-        height: 55,
-        width: 55,
-        marginTop: 60,
+        height: 60,
+        width: 60,
+        marginTop: 50,
         borderRadius: 50,
         backgroundColor: colores.secundario,
         justifyContent: 'center',

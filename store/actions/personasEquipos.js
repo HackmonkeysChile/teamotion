@@ -7,7 +7,7 @@ export const obtenerPorID = (idEquipo) => {
     console.log(idEquipo);
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.12:3000/PersonasEquipos/PersonasPorEquipo/" + idEquipo, {
+            const respuesta = await fetch("http://192.168.0.25:3000/PersonasEquipos/PersonasPorEquipo/" + idEquipo, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

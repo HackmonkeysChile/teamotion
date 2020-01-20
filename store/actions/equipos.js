@@ -6,7 +6,7 @@ export const obtenerEquipos = () => {
     
     return async dispatch => {
         try {
-            const respuesta = await fetch("http://192.168.0.12:3000/Equipos/Obtener", {
+            const respuesta = await fetch("http://192.168.0.25:3000/Equipos/Obtener", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
